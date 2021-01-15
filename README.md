@@ -18,46 +18,31 @@ go get -u github.com/spacycloud/spacycloud-go
 
 Here is a full example that uses the `en_core_web_sm` model, with a fake token:
 
-```python
-import spacycloud
+```go
+package main
 
-client = spacycloud.Client("en_core_web_sm", "4eC39HqLyjWDarjtT1zdp7dc")
-client.entities("John Doe is a Go Developer at Google")
+import "github.com/spacycloud/spacycloud-go"
+
+func main() {
+    client := spacycloud.NewClient("en_core_web_sm", "4eC39HqLyjWDarjtT1zdp7dc")
+    client.Entities("John Doe is a Go Developer at Google")
+}
 ```
 
 And a full example that uses your own custom model `7894`:
 
-```python
-import spacycloud
+```go
+package main
 
-client = spacycloud.Client("custom_model/7894", "4eC39HqLyjWDarjtT1zdp7dc")
-client.entities("John Doe is a Go Developer at Google")
+import "github.com/spacycloud/spacycloud-go"
+
+func main() {
+    client := spacycloud.NewClient("custom_model/7894", "4eC39HqLyjWDarjtT1zdp7dc")
+    client.Entities("John Doe is a Go Developer at Google")
+}
 ```
 
-Here is what the response could look like:
-
-```json
-[
-  {
-    "end": 8,
-    "start": 0,
-    "text": "John Doe",
-    "type": "PERSON"
-  },
-  {
-    "end": 25,
-    "start": 13,
-    "text": "Go Developer",
-    "type": "POSITION"
-  },
-  {
-    "end": 35,
-    "start": 30,
-    "text": "Google",
-    "type": "ORG"
-  },
-]
-```
+An `Entities` struct is returned.
 
 ## Usage
 
@@ -69,49 +54,53 @@ The spaCy model can either be a spaCy pretrained model like `en_core_web_sm`, `f
 
 Your token can be retrieved from your [spaCy Cloud dashboard](https://spacycloud.io/home/token).
 
-```python
-import spacycloud
+```go
+package main
 
-client = spacycloud.Client("<model>", "<your token>")
+import "github.com/spacycloud/spacycloud-go"
+
+func main() {
+    client := spacycloud.NewClient("<model>", "<token>")
+}
 ```
 
 ### Entities Endpoint
 
-Call the `entities()` method and pass the text you want to perform named entity recognition (NER) on.
+Call the `Entities()` method and pass the text you want to perform named entity recognition (NER) on.
 
-```python
-client.entities("<Your block of text>")
+```go
+client.Entities("<Your block of text>")
 ```
 
-The above command returns a JSON object.
+The above command returns an `Entities` struct.
 
 
 ### Dependencies Endpoint
 
-Call the `dependencies()` method and pass the text you want to perform part of speech tagging (POS) + arcs on.
+Call the `Dependencies()` method and pass the text you want to perform part of speech tagging (POS) + arcs on.
 
-```python
-client.dependencies("<Your block of text>")
+```go
+client.Dependencies("<Your block of text>")
 ```
 
-The above command returns a JSON object.
+The above command returns a `Dependencies` struct.
 
 ### Sentence Dependencies Endpoint
 
-Call the `sentence_dependencies()` method and pass a block of text made up of several sentencies you want to perform POS + arcs on.
+Call the `DentenceDependencies()` method and pass a block of text made up of several sentencies you want to perform POS + arcs on.
 
-```python
-client.sentence_dependencies("<Your block of text>")
+```go
+client.SentenceDependencies("<Your block of text>")
 ```
 
-The above command returns a JSON object.
+The above command returns a `SentenceDependencies` struct.
 
 ### Library Versions Endpoint
 
-Call the `lib_versions()` method to know the versions of the libraries used behind the hood with the model (for example the spaCy version used).
+Call the `LibVersions()` method to know the versions of the libraries used behind the hood with the model (for example the spaCy version used).
 
-```python
-client.lib_versions()
+```go
+client.LibVersions()
 ```
 
-The above command returns a JSON object.
+The above command returns a `LibVersion` struct.
