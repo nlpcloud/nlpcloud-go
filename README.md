@@ -8,7 +8,7 @@ If you face an issue, don't hesitate to raise it as a Github issue. Thanks!
 
 ## Installation
 
-Install using Go `get`.
+Install using `go get`.
 
 ```shell
 go get -u github.com/spacycloud/spacycloud-go
