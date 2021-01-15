@@ -167,6 +167,12 @@ func (c *Client) apiPost(endpoint, text string) (body []byte, err error) {
 
 	defer resp.Body.Close()
 
+	if resp.StatusCode != http.StatusOK {
+		body, _ = ioutil.ReadAll(resp.Body)
+		err = fmt.Errorf("status code: %v, message: %v", resp.StatusCode, string(body))
+		return
+	}
+
 	body, err = ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return

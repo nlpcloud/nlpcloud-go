@@ -8,10 +8,10 @@ If you face an issue, don't hesitate to raise it as a Github issue. Thanks!
 
 ## Installation
 
-Install using Go modules.
+Install using Go `get`.
 
 ```shell
-pip install spacycloud
+go get -u github.com/spacycloud/spacycloud-go
 ```
 
 ## Examples
