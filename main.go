@@ -67,6 +67,10 @@ type SentenceDependencies struct {
 	SentenceDependencies []SentenceDependency `json:"sentence_dependencies"`
 }
 
+type LibVersion struct {
+	Spacy string `json:"spacy"`
+}
+
 type userInput struct {
 	Text string `json:"text"`
 }
@@ -116,6 +120,22 @@ func (c *Client) SentenceDependencies(text string) (sentenceDependencies Sentenc
 	return
 }
 
+// LibVersions returns the spaCy versions used with the model.
+// Only showing the spaCy version is temporary. More lib versions
+// will be added soon.
+func (c *Client) LibVersions() (libVersion LibVersion, err error) {
+	body, err := c.apiGet("version")
+	if err != nil {
+		return
+	}
+
+	err = json.Unmarshal(body, &libVersion)
+	if err != nil {
+		return
+	}
+	return
+}
+
 // NewClient initializes a new Client.
 func NewClient(model, token string) Client {
 	return Client{
@@ -134,6 +154,29 @@ func (c *Client) apiPost(endpoint, text string) (body []byte, err error) {
 	}
 
 	req, err := http.NewRequest("POST", fmt.Sprintf("%v/%v", c.rootURL, endpoint), data)
+	if err != nil {
+		return
+	}
+
+	req.Header.Set("Authorization", fmt.Sprintf("Token %v", c.token))
+
+	resp, err := c.client.Do(req)
+	if err != nil {
+		return
+	}
+
+	defer resp.Body.Close()
+
+	body, err = ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return
+	}
+
+	return
+}
+
+func (c *Client) apiGet(endpoint string) (body []byte, err error) {
+	req, err := http.NewRequest("GET", fmt.Sprintf("%v/%v", c.rootURL, endpoint), nil)
 	if err != nil {
 		return
 	}
