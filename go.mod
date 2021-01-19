@@ -1,3 +1,3 @@
-module github.com/spacycloud/spacycloud-go
+module github.com/nlpcloud/nlpcloud-go
 
 go 1.15

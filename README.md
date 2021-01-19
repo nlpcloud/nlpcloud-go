@@ -1,8 +1,8 @@
-# Go Client For spaCy Cloud
+# Go Client For NLP Cloud
 
-This is a Go client for the spaCy Cloud API: https://docs.spacycloud.io
+This is a Go client for the NLP Cloud API: https://docs.nlpcloud.io
 
-spaCy Cloud serves all the spaCy pre-trained models, and your own custom models, through a RESTful API, so it's easy for you to use them in production.
+NLP Cloud serves all the spaCy pre-trained models, and your own custom models, through a RESTful API, so it's easy for you to use them in production.
 
 If you face an issue, don't hesitate to raise it as a Github issue. Thanks!
 
@@ -11,7 +11,7 @@ If you face an issue, don't hesitate to raise it as a Github issue. Thanks!
 Install using `go get`.
 
 ```shell
-go get -u github.com/spacycloud/spacycloud-go
+go get -u github.com/nlpcloud/nlpcloud-go
 ```
 
 ## Examples
@@ -21,10 +21,10 @@ Here is a full example that uses the `en_core_web_sm` model, with a fake token:
 ```go
 package main
 
-import "github.com/spacycloud/spacycloud-go"
+import "github.com/nlpcloud/nlpcloud-go"
 
 func main() {
-    client := spacycloud.NewClient("en_core_web_sm", "4eC39HqLyjWDarjtT1zdp7dc")
+    client := nlpcloud.NewClient("en_core_web_sm", "4eC39HqLyjWDarjtT1zdp7dc")
     client.Entities("John Doe is a Go Developer at Google")
 }
 ```
@@ -34,10 +34,10 @@ And a full example that uses your own custom model `7894`:
 ```go
 package main
 
-import "github.com/spacycloud/spacycloud-go"
+import "github.com/nlpcloud/nlpcloud-go"
 
 func main() {
-    client := spacycloud.NewClient("custom_model/7894", "4eC39HqLyjWDarjtT1zdp7dc")
+    client := nlpcloud.NewClient("custom_model/7894", "4eC39HqLyjWDarjtT1zdp7dc")
     client.Entities("John Doe is a Go Developer at Google")
 }
 ```
@@ -48,19 +48,19 @@ An `Entities` struct is returned.
 
 ### Client Initialization
 
-Pass the spaCy model you want to use and the spaCy cloud token to the client during initialization.
+Pass the spaCy model you want to use and the NLP Cloud token to the client during initialization.
 
 The spaCy model can either be a spaCy pretrained model like `en_core_web_sm`, `fr_core_news_lg`... but also one of your custom spaCy models using `custom_model/<model id>` (e.g. `custom_model/2568`).
 
-Your token can be retrieved from your [spaCy Cloud dashboard](https://spacycloud.io/home/token).
+Your token can be retrieved from your [NLP Cloud dashboard](https://nlpcloud.io/home/token).
 
 ```go
 package main
 
-import "github.com/spacycloud/spacycloud-go"
+import "github.com/nlpcloud/nlpcloud-go"
 
 func main() {
-    client := spacycloud.NewClient("<model>", "<token>")
+    client := nlpcloud.NewClient("<model>", "<token>")
 }
 ```
 

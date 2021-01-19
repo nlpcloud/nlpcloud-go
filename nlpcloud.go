@@ -1,4 +1,4 @@
-package spacycloud
+package nlpcloud
 
 import (
 	"bytes"
@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	baseURL    = "https://api.spacycloud.io"
+	baseURL    = "https://api.nlpcloud.io"
 	apiVersion = "v1"
 )
 
