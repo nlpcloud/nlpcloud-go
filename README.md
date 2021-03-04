@@ -111,7 +111,7 @@ Call the `Question()` method and pass the following:
 client.Question("<Your context>", "<Your question>")
 ```
 
-The above command returns an `Answer` struct.
+The above command returns an `Question` struct.
 
 ### Summarization Endpoint
 
@@ -123,7 +123,7 @@ Call the `Summarization()` method and pass the text you want to summarize.
 client.Summarization("<Your text to summarize>")
 ```
 
-The above command returns a `Summary` struct.
+The above command returns a `Summarization` struct.
 
 ### Dependencies Endpoint
 
