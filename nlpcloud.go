@@ -63,6 +63,11 @@ type Summarization struct {
 	SummaryText string `json:"summary_text"`
 }
 
+// Translation holds a translated text returned by the API.
+type Translation struct {
+	TranslationText string `json:"translation_text"`
+}
+
 // Word holds POS tag for a word.
 type Word struct {
 	Text string `json:"text"`
@@ -228,6 +233,28 @@ func (c *Client) Summarization(text string) (summarization Summarization, err er
 	}
 
 	err = json.Unmarshal(body, &summarization)
+	if err != nil {
+		return
+	}
+
+	return
+}
+
+// Translation translates a block of text by contacting the API.
+func (c *Client) Translation(text string) (translation Translation, err error) {
+	data := new(bytes.Buffer)
+
+	err = json.NewEncoder(data).Encode(textInput{Text: text})
+	if err != nil {
+		return
+	}
+
+	body, err := c.apiPost("translation", data)
+	if err != nil {
+		return
+	}
+
+	err = json.Unmarshal(body, &translation)
 	if err != nil {
 		return
 	}

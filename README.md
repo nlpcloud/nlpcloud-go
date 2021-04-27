@@ -125,6 +125,16 @@ client.Summarization("<Your text to summarize>")
 
 The above command returns a `Summarization` struct.
 
+### Translation Endpoint
+
+Call the `Translation()` method and pass the text you want to translate.
+
+```go
+client.Translation("<Your text to translate>")
+```
+
+The above command returns a `Translation` struct.
+
 ### Dependencies Endpoint
 
 Call the `Dependencies()` method and pass the text you want to perform part of speech tagging (POS) + arcs on.
