@@ -204,7 +204,7 @@ func (c *Client) Question(context, question string) (questionResponse Question, 
 		return
 	}
 
-	body, err := c.apiPost("classification", data)
+	body, err := c.apiPost("question", data)
 	if err != nil {
 		return
 	}
@@ -227,7 +227,7 @@ func (c *Client) Summarization(text string) (summarization Summarization, err er
 		return
 	}
 
-	body, err := c.apiPost("sentiment", data)
+	body, err := c.apiPost("summarization", data)
 	if err != nil {
 		return
 	}
