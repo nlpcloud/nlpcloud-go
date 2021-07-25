@@ -338,6 +338,7 @@ func (c *Client) apiPost(endpoint string, data *bytes.Buffer) (body []byte, err 
 	}
 
 	req.Header.Set("Authorization", fmt.Sprintf("Token %v", c.token))
+	req.Header.Set("User-Agent", "nlpcloud-go-client")
 
 	resp, err := c.client.Do(req)
 	if err != nil {
