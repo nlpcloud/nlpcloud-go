@@ -323,9 +323,17 @@ func (c *Client) LibVersions() (libVersions LibVersions, err error) {
 }
 
 // NewClient initializes a new Client.
-func NewClient(model, token string) Client {
+func NewClient(model, token string, gpu bool) Client {
+	var rootURL string
+
+	if gpu {
+		rootURL = fmt.Sprintf("%v/%v/gpu/%v", baseURL, apiVersion, model)
+	} else {
+		rootURL = fmt.Sprintf("%v/%v/%v", baseURL, apiVersion, model)
+	}
+
 	return Client{
-		rootURL: fmt.Sprintf("%v/%v/%v", baseURL, apiVersion, model),
+		rootURL: rootURL,
 		token:   token,
 		client:  &http.Client{},
 	}
