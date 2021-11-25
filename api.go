@@ -98,10 +98,10 @@ type GenerationParams struct {
 	NoRepeatNgramSize  *int      `json:"no_repeat_ngram_size,omitempty"`
 	NumReturnSequences *int      `json:"num_return_sequences,omitempty"`
 	TopK               *int      `json:"top_k,omitempty"`
-	TopP               *float32  `json:"top_p,omitempty"`
-	Temperature        *float32  `json:"temperature,omitempty"`
-	RepetitionPenalty  *float32  `json:"repetition_penalty,omitempty"`
-	LengthPenalty      *float32  `json:"length_penalty,omitempty"`
+	TopP               *float64  `json:"top_p,omitempty"`
+	Temperature        *float64  `json:"temperature,omitempty"`
+	RepetitionPenalty  *float64  `json:"repetition_penalty,omitempty"`
+	LengthPenalty      *float64  `json:"length_penalty,omitempty"`
 	BadWords           *[]string `json:"bad_words,omitempty"`
 }
 
@@ -219,13 +219,13 @@ type Entities struct {
 // Classification holds the text classification returned by the API.
 type Classification struct {
 	Labels []string  `json:"labels"`
-	Scores []float32 `json:"scores"`
+	Scores []float64 `json:"scores"`
 }
 
 // ScoredLabel holds a label and its score for sentiment analysis.
 type ScoredLabel struct {
 	Label string  `json:"label"`
-	Score float32 `json:"score"`
+	Score float64 `json:"score"`
 }
 
 // Sentiment holds the sentiment of a text returned by the API.
@@ -236,7 +236,7 @@ type Sentiment struct {
 // Question holds the answer to a question by the API.
 type Question struct {
 	Answer string  `json:"answer"`
-	Score  float32 `json:"score"`
+	Score  float64 `json:"score"`
 	Start  int     `json:"start"`
 	End    int     `json:"end"`
 }
@@ -274,7 +274,7 @@ type Arc struct {
 
 // LangDetection holds the languages of a text returned by the API.
 type LangDetection struct {
-	Languages []map[string]float32 `json:"languages"`
+	Languages []map[string]float64 `json:"languages"`
 }
 
 // Dependencies holds a list of POS dependencies returned by the API.

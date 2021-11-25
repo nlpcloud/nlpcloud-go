@@ -149,7 +149,7 @@ func TestClientClassification(t *testing.T) {
 					"space",
 					"nature",
 				},
-				Scores: []float32{
+				Scores: []float64{
 					0.9258800745010376,
 					0.1938474327325821,
 					0.010988450609147549,
@@ -554,7 +554,7 @@ func TestClientLangDetection(t *testing.T) {
 				Text: "John Doe has been working for Microsoft in Seattle since 1999. Et il parle aussi un peu français.",
 			},
 			ExpectedLangDetection: &nlpcloud.LangDetection{
-				Languages: []map[string]float32{
+				Languages: []map[string]float64{
 					{
 						"en": 0.7142834369645996,
 					}, {

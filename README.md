@@ -92,3 +92,24 @@ In the case it has some, you can call an enpoint using the following.
 ```go
 res, err := nlpcloud.TheAPIEndpoint(params TheAPIEndpointParams)
 ```
+
+## Tests
+
+This Go wrapper aims to support the NLP Cloud API, being automatically full-tested and validated.
+It's achieved through unit and integration tests that you can run to make sure everything works as expected.
+
+### Unit tests
+
+To run them, you can execute the following.
+```bash
+go test ./... -v -count=1 -cover
+```
+
+### Integration tests
+
+To run them, you can execute the following.
+```bash
+API_TOKEN=<you_api_token> go test -tags=integration -v ./internal/integration/...
+```
+
+Notice it needs a valid API token that has access to the models and functionalities documented.
