@@ -1,5 +1,10 @@
 # Go Client For NLP Cloud
 
+[![reference](https://godoc.org/github.com/nlpcloud/nlpcloud-go/v5?status.svg=)](https://pkg.go.dev/github.com/nlpcloud/nlpcloud-go)
+[![go report](https://goreportcard.com/badge/github.com/nlpcloud/nlpcloud-go)](https://goreportcard.com/report/github.com/nlpcloud/nlpcloud-go)
+[![codecov](https://codecov.io/gh/nlpcloud/nlpcloud-go/branch/master/graph/badge.svg)](https://codecov.io/gh/nlpcloud/nlpcloud-go)
+[![CI](https://github.com/nlpcloud/nlpcloud-go/actions/workflows/ci.yaml/badge.svg)](https://github.com/nlpcloud/nlpcloud-go/actions?query=workflow%3Aci+)
+
 This is a Go client for the NLP Cloud API: https://docs.nlpcloud.io
 
 NLP Cloud serves high performance pre-trained for NER, sentiment-analysis, classification, summarization, text generation, question answering, machine translation, language detection, tokenization, POS tagging, and dependency parsing. It is ready for production, served through a REST API.
