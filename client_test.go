@@ -33,7 +33,7 @@ func checkErr(expErr, err error, assert *assert.Assertions) {
 	// Check if the error is generated using errors.New
 	if typeErr == errStrTypeOf {
 		if err.Error() != expErr.Error() {
-			assert.Fail("Error message differs: got \"%s\" instead of \"%s\".", err, expErr)
+			assert.Fail("Error message differs: got \"%s\" instead of \"%s\".", err.Error(), expErr.Error())
 		}
 		return
 	}
