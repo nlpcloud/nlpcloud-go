@@ -68,9 +68,36 @@ func (c *Client) issueRequest(method, endpoint string, params, dst interface{}) 
 
 	// Check for request failure
 	if resp.StatusCode != http.StatusOK {
-		return &ErrUnexpectedStatus{
-			Body:       body,
-			StatusCode: resp.StatusCode,
+		switch resp.StatusCode {
+		case 400:
+			return ErrBadRequest
+		case 401:
+			return ErrUnauthorized
+		case 402:
+			return ErrPaymentRequired
+		case 403:
+			return ErrForbidden
+		case 404:
+			return ErrNotFound
+		case 405:
+			return ErrMethodNotAllowed
+		case 406:
+			return ErrNotAcceptable
+		case 413:
+			return ErrRequestEntityTooLarge
+		case 422:
+			return ErrUnprocessableEntity
+		case 429:
+			return ErrTooManyRequests
+		case 500:
+			return ErrInternalServerError
+		case 503:
+			return ErrServiceUnavailable
+		default:
+			return &ErrUnexpectedStatus{
+				Body:       body,
+				StatusCode: resp.StatusCode,
+			}
 		}
 	}
 
@@ -87,6 +114,42 @@ var (
 	// ErrNilClient is an error returned when the sub-Client is nil but
 	// need to get used.
 	ErrNilClient = errors.New("client is nil")
+
+	// ErrBadRequest is an error returned on status code 400.
+	ErrBadRequest = errors.New("your request is invalid")
+
+	// ErrUnauthorized is an error returned on status code 401.
+	ErrUnauthorized = errors.New("your API token is wrong")
+
+	// ErrPaymentRequired is an error returned on status code 402.
+	ErrPaymentRequired = errors.New("you are trying to access a ressource that is only accessible after payment")
+
+	// ErrForbidden is an error returned on status code 403.
+	ErrForbidden = errors.New("you don't have the sufficient rights to access the resource. Please make sure you subscribed to the proper plan that grants you access to this resource")
+
+	// ErrNotFound is an error returned on status code 404.
+	ErrNotFound = errors.New("the specified resource could not be found")
+
+	// ErrMethodNotAllowed is an error returned on status code 405.
+	ErrMethodNotAllowed = errors.New("you tried to access a resource with an invalid method")
+
+	// ErrNotAcceptable is an error returned on status code 406.
+	ErrNotAcceptable = errors.New("you requested a format that isn't json")
+
+	// ErrRequestEntityTooLarge is an error returned on status code 413.
+	ErrRequestEntityTooLarge = errors.New("the piece of text that you are sending is too large. Please see the maximum sizes in the documentation")
+
+	// ErrUnprocessableEntity is an error returned on status code 422.
+	ErrUnprocessableEntity = errors.New("your request is not properly formatted. Happends for example if your JSON payload is not correctly formatted, or if you omit the \"Content-Type: application/json\" header")
+
+	// ErrTooManyRequests is an error returned on status code 429.
+	ErrTooManyRequests = errors.New("you made too many requests in a short while, please slow down")
+
+	// ErrInternalServerError is an error returned on status code 500.
+	ErrInternalServerError = errors.New("sorry, we had a problem with our server. Please try again later")
+
+	// ErrServiceUnavailable is an error returned on status code 503.
+	ErrServiceUnavailable = errors.New("sorry, we are temporarily offline for maintenance. Please try again later")
 )
 
 // ErrUnexpectedStatus is an error type returned when the HTTP request
