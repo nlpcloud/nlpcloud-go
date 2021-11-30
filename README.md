@@ -29,7 +29,7 @@ Here is a full example that performs Named Entity Recognition (NER) using spaCy'
 package main
 
 import (
-    "http"
+    "net/http"
     
     "github.com/nlpcloud/nlpcloud-go"
 )
@@ -47,7 +47,7 @@ And a full example that uses your own custom model `7894`:
 package main
 
 import (
-    "http"
+    "net/http"
 
     "github.com/nlpcloud/nlpcloud-go"
 )
@@ -76,7 +76,7 @@ Your token can be retrieved from your [NLP Cloud dashboard](https://nlpcloud.io/
 package main
 
 import (
-    "http"
+    "net/http"
     
     "github.com/nlpcloud/nlpcloud-go"
 )
