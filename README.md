@@ -4,7 +4,7 @@
 [![go report](https://goreportcard.com/badge/github.com/nlpcloud/nlpcloud-go)](https://goreportcard.com/report/github.com/nlpcloud/nlpcloud-go)
 [![codecov](https://codecov.io/gh/nlpcloud/nlpcloud-go/branch/master/graph/badge.svg)](https://codecov.io/gh/nlpcloud/nlpcloud-go)
 
-This is a Go client for the [NLP Cloud](https://nlpcloud.io) API. See the [documentation] (https://docs.nlpcloud.io) for more details.
+This is a Go client for the [NLP Cloud](https://nlpcloud.io) API. See the [documentation](https://docs.nlpcloud.io) for more details.
 
 NLP Cloud serves high performance pre-trained for NER, sentiment-analysis, classification, summarization, text generation, question answering, machine translation, language detection, tokenization, lemmatization, POS tagging, and dependency parsing. It is ready for production, served through a REST API.
 
