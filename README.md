@@ -34,7 +34,7 @@ import (
 )
 
 func main() {
-    client := nlpcloud.NewClient(&http.Client{}, "en_core_web_lg", "<your token>", false)
+    client := nlpcloud.NewClient(&http.Client{}, "en_core_web_lg", "<your token>", false, "")
     entities, err := client.Entities(nlpcloud.EntitiesParams{Text: "John Doe is a Go Developer at Google"})
     ...
 }
@@ -52,7 +52,7 @@ import (
 )
 
 func main() {
-    client := nlpcloud.NewClient(&http.Client{}, "custom_model/7894", "<your token>", false)
+    client := nlpcloud.NewClient(&http.Client{}, "custom_model/7894", "<your token>", false, "")
     entities, err := client.Entities(nlpcloud.EntitiesParams{Text: "John Doe is a Go Developer at Google"})
     ...
 }

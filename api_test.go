@@ -155,7 +155,7 @@ func TestClientEntities(t *testing.T) {
 
 	for testname, tt := range tests {
 		t.Run(testname, func(t *testing.T) {
-			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true)
+			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true, "")
 			assert := assert.New(t)
 
 			entities, err := client.Entities(tt.Params)
@@ -305,7 +305,7 @@ func TestClientClassification(t *testing.T) {
 
 	for testname, tt := range tests {
 		t.Run(testname, func(t *testing.T) {
-			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true)
+			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true, "")
 			assert := assert.New(t)
 
 			classification, err := client.Classification(tt.Params)
@@ -445,7 +445,7 @@ func TestClientSentiment(t *testing.T) {
 
 	for testname, tt := range tests {
 		t.Run(testname, func(t *testing.T) {
-			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true)
+			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true, "")
 			assert := assert.New(t)
 
 			sentiment, err := client.Sentiment(tt.Params)
@@ -584,7 +584,7 @@ func TestClientQuestion(t *testing.T) {
 
 	for testname, tt := range tests {
 		t.Run(testname, func(t *testing.T) {
-			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true)
+			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true, "")
 			assert := assert.New(t)
 
 			question, err := client.Question(tt.Params)
@@ -730,7 +730,7 @@ func TestClientSummarization(t *testing.T) {
 
 	for testname, tt := range tests {
 		t.Run(testname, func(t *testing.T) {
-			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true)
+			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true, "")
 			assert := assert.New(t)
 
 			summarization, err := client.Summarization(tt.Params)
@@ -868,7 +868,7 @@ func TestClientGeneration(t *testing.T) {
 
 	for testname, tt := range tests {
 		t.Run(testname, func(t *testing.T) {
-			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true)
+			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true, "")
 			assert := assert.New(t)
 
 			generation, err := client.Generation(tt.Params)
@@ -1003,7 +1003,7 @@ func TestClientTranslation(t *testing.T) {
 
 	for testname, tt := range tests {
 		t.Run(testname, func(t *testing.T) {
-			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true)
+			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true, "")
 			assert := assert.New(t)
 
 			translation, err := client.Translation(tt.Params)
@@ -1144,7 +1144,7 @@ func TestClientLangDetection(t *testing.T) {
 
 	for testname, tt := range tests {
 		t.Run(testname, func(t *testing.T) {
-			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true)
+			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true, "")
 			assert := assert.New(t)
 
 			langDetection, err := client.LangDetection(tt.Params)
@@ -1350,7 +1350,7 @@ func TestClientDependencies(t *testing.T) {
 
 	for testname, tt := range tests {
 		t.Run(testname, func(t *testing.T) {
-			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true)
+			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true, "")
 			assert := assert.New(t)
 
 			dependencies, err := client.Dependencies(tt.Params)
@@ -1648,7 +1648,7 @@ func TestClientSentenceDependencies(t *testing.T) {
 
 	for testname, tt := range tests {
 		t.Run(testname, func(t *testing.T) {
-			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true)
+			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true, "")
 			assert := assert.New(t)
 
 			sentenceDependencies, err := client.SentenceDependencies(tt.Params)
@@ -1841,7 +1841,7 @@ func TestClientTokens(t *testing.T) {
 
 	for testname, tt := range tests {
 		t.Run(testname, func(t *testing.T) {
-			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true)
+			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true, "")
 			assert := assert.New(t)
 
 			Tokens, err := client.Tokens(tt.Params)
@@ -1957,7 +1957,7 @@ func TestClientLibVersions(t *testing.T) {
 
 	for testname, tt := range tests {
 		t.Run(testname, func(t *testing.T) {
-			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true)
+			client := nlpcloud.NewClient(tt.Client, "fake-model", "fake-token", true, "")
 			assert := assert.New(t)
 
 			libVersions, err := client.LibVersions()
