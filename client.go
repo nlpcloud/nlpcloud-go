@@ -26,10 +26,13 @@ type Client struct {
 }
 
 // NewClient initializes a new Client.
-func NewClient(client HTTPClient, model, token string, gpu bool) *Client {
+func NewClient(client HTTPClient, model, token string, gpu bool, lang string) *Client {
 	rootUrl := "https://api.nlpcloud.io/v1/"
 	if gpu {
 		rootUrl += "gpu/"
+	}
+	if lang != "" {
+		rootUrl += lang + "/"
 	}
 	rootUrl += model
 

@@ -81,12 +81,14 @@ import (
 )
 
 func main() {
-    client := nlpcloud.NewClient(&http.Client, "<model>", "<token>", false)
+    client := nlpcloud.NewClient(&http.Client, "<model>", "<token>", false, "<language>")
     ...
 }
 ```
 
 If you want to use a GPU, set the 4th parameter as `true`.
+
+If you want to use the multilingual add-on in order to process non-English texts, set your language code in the 5th parameter. For example, if you want to process French text, you should set the 5th parameter as `"fr"`.
 
 ### API endpoint
 
