@@ -251,6 +251,7 @@ type Summarization struct {
 type Generation struct {
 	GeneratedText     string `json:"generated_text"`
 	NbGeneratedTokens int    `json:"nb_generated_tokens"`
+	NbInputTokens     int    `json:"nb_input_tokens"`
 }
 
 // Translation holds a translated text returned by the API.
