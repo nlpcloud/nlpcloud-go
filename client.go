@@ -39,7 +39,7 @@ var (
 	ErrRequestEntityTooLarge = errors.New("the piece of text that you are sending is too large. Please see the maximum sizes in the documentation")
 
 	// ErrUnprocessableEntity is an error returned on status code 422.
-	ErrUnprocessableEntity = errors.New("your request is not properly formatted. Happends for example if your JSON payload is not correctly formatted, or if you omit the \"Content-Type: application/json\" header")
+	ErrUnprocessableEntity = errors.New("your request is not properly formatted. Happens for example if your JSON payload is not correctly formatted, or if you omit the \"Content-Type: application/json\" header")
 
 	// ErrTooManyRequests is an error returned on status code 429.
 	ErrTooManyRequests = errors.New("you made too many requests in a short while, please slow down")
