@@ -93,7 +93,7 @@ type GenerationParams struct {
 	EndSequence        *string   `json:"end_sequence,omitempty"`
 	RemoveInput        *bool     `json:"remove_input,omitempty"`
 	DoSample           *bool     `json:"do_sample,omitempty"`
-	NumBeans           *int      `json:"num_beams,omitempty"`
+	NumBeams           *int      `json:"num_beams,omitempty"`
 	EarlyStopping      *bool     `json:"early_stopping,omitempty"`
 	NoRepeatNgramSize  *int      `json:"no_repeat_ngram_size,omitempty"`
 	NumReturnSequences *int      `json:"num_return_sequences,omitempty"`
