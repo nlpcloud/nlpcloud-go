@@ -194,7 +194,7 @@ func (c *Client) Tokens(params TokensParams) (*Tokens, error) {
 	return tokens, nil
 }
 
-// LibVersions returns the spaCy versions used with the model by calling the API.
+// LibVersions returns the versions used with the model by calling the API.
 func (c *Client) LibVersions() (*LibVersions, error) {
 	libVersions := &LibVersions{}
 	err := c.issueRequest(http.MethodGet, "versions", nil, libVersions)
