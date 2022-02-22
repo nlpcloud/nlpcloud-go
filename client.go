@@ -113,12 +113,18 @@ func (c *Client) issueRequest(method, endpoint string, params, dst interface{}) 
 	// Marshal the request body if needed (in most cases, for POST)
 	var buf io.Reader = nil
 	if params != nil {
-		j, _ := json.Marshal(params)
+		j, err := json.Marshal(params)
+		if err != nil {
+			return err
+		}
 		buf = bytes.NewBuffer(j)
 	}
 
 	// Create the request backbone
-	req, _ := http.NewRequest(method, c.rootURL+"/"+endpoint, buf)
+	req, err := http.NewRequest(method, c.rootURL+"/"+endpoint, buf)
+	if err != nil {
+		return err
+	}
 	req.Header.Set("Authorization", "Token "+c.token)
 	req.Header.Set("User-Agent", "nlpcloud-go-client")
 
@@ -128,7 +134,10 @@ func (c *Client) issueRequest(method, endpoint string, params, dst interface{}) 
 		return err
 	}
 	defer resp.Body.Close()
-	body, _ := io.ReadAll(resp.Body) // assume the client builds Body properly
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
 
 	// Check for request failure
 	if resp.StatusCode != http.StatusOK {
