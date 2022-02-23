@@ -2,7 +2,6 @@
 
 [![reference](https://godoc.org/github.com/nlpcloud/nlpcloud-go/v5?status.svg=)](https://pkg.go.dev/github.com/nlpcloud/nlpcloud-go)
 [![go report](https://goreportcard.com/badge/github.com/nlpcloud/nlpcloud-go)](https://goreportcard.com/report/github.com/nlpcloud/nlpcloud-go)
-[![codecov](https://codecov.io/gh/nlpcloud/nlpcloud-go/branch/master/graph/badge.svg)](https://codecov.io/gh/nlpcloud/nlpcloud-go)
 
 This is a Go client for the [NLP Cloud](https://nlpcloud.io) API. See the [documentation](https://docs.nlpcloud.io) for more details.
 
