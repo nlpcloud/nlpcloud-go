@@ -9,12 +9,6 @@ import (
 	"net/http"
 )
 
-// ReturnedErrorDetail maps the error detail returned
-// by the API.
-type ReturnedErrorDetail struct {
-	Detail string `json:"detail"`
-}
-
 // HTTPError is an error type returned when the HTTP request
 // is failing.
 type HTTPError struct {
@@ -107,22 +101,8 @@ func (c *Client) issueRequest(method, endpoint string, params, dst interface{}) 
 
 	// Check for request failure
 	if resp.StatusCode != http.StatusOK {
-		// If the returned body contains the "detail" key,
-		// we extract the value. If it doesn't we simply
-		// return the whole body.
-		var errDetail string
-		var returnedErrorDetail ReturnedErrorDetail
-
-		err = json.Unmarshal(body, &returnedErrorDetail)
-
-		if err == nil {
-			errDetail = returnedErrorDetail.Detail
-		} else {
-			errDetail = string(body)
-		}
-
 		return &HTTPError{
-			Detail: errDetail,
+			Detail: string(body),
 			Status: resp.StatusCode,
 		}
 	}
