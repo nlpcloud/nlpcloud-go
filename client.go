@@ -9,66 +9,32 @@ import (
 	"net/http"
 )
 
-var (
-	// ErrNilClient is an error returned when the sub-Client is nil but
-	// need to get used.
-	ErrNilClient = errors.New("client is nil")
-
-	// ErrBadRequest is an error returned on status code 400.
-	ErrBadRequest = errors.New("your request is invalid")
-
-	// ErrUnauthorized is an error returned on status code 401.
-	ErrUnauthorized = errors.New("your API token is wrong")
-
-	// ErrPaymentRequired is an error returned on status code 402.
-	ErrPaymentRequired = errors.New("you are trying to access a ressource that is only accessible after payment")
-
-	// ErrForbidden is an error returned on status code 403.
-	ErrForbidden = errors.New("you don't have the sufficient rights to access the resource. Please make sure you subscribed to the proper plan that grants you access to this resource")
-
-	// ErrNotFound is an error returned on status code 404.
-	ErrNotFound = errors.New("the specified resource could not be found")
-
-	// ErrMethodNotAllowed is an error returned on status code 405.
-	ErrMethodNotAllowed = errors.New("you tried to access a resource with an invalid method")
-
-	// ErrNotAcceptable is an error returned on status code 406.
-	ErrNotAcceptable = errors.New("you requested a format that isn't json")
-
-	// ErrRequestEntityTooLarge is an error returned on status code 413.
-	ErrRequestEntityTooLarge = errors.New("the piece of text that you are sending is too large. Please see the maximum sizes in the documentation")
-
-	// ErrUnprocessableEntity is an error returned on status code 422.
-	ErrUnprocessableEntity = errors.New("your request is not properly formatted. Happens for example if your JSON payload is not correctly formatted, or if you omit the \"Content-Type: application/json\" header")
-
-	// ErrTooManyRequests is an error returned on status code 429.
-	ErrTooManyRequests = errors.New("you made too many requests in a short while, please slow down")
-
-	// ErrInternalServerError is an error returned on status code 500.
-	ErrInternalServerError = errors.New("sorry, we had a problem with our server. Please try again later")
-
-	// ErrBadGateway is an error returned on status code 502.
-	ErrBadGateway = errors.New("sorry, our reverse proxy was not able to contact the model you're requesting. Please try again later")
-
-	// ErrServiceUnavailable is an error returned on status code 503.
-	ErrServiceUnavailable = errors.New("sorry, the model you are requesting had a temporary issue. Please try again later. The error is returned together with a \"Retry-After\" header, mentioning the number of seconds you should wait before trying again")
-
-	// ErrGatewayTimeout is an error returned on status code 504.
-	ErrGatewayTimeout = errors.New("sorry, the model you are requesting is temporarily overloaded. Please try again later")
-)
-
-// ErrUnexpectedStatus is an error type returned when the HTTP request
-// returned with an unexpected status code, meaning something failed.
-type ErrUnexpectedStatus struct {
-	Body       []byte
-	StatusCode int
+// ReturnedErrorDetail maps the error detail returned
+// by the API.
+type ReturnedErrorDetail struct {
+	Detail string `json:"detail"`
 }
 
-func (e ErrUnexpectedStatus) Error() string {
-	return fmt.Sprintf("unexpected status %d with body %v", e.StatusCode, e.Body)
+// HTTPError is an error type returned when the HTTP request
+// is failing.
+type HTTPError struct {
+	Detail string
+	Status int
 }
 
-var _ error = (*ErrUnexpectedStatus)(nil)
+func (h HTTPError) Error() string {
+	return fmt.Sprintf("http error with status %d: %v", h.Status, h.Detail)
+}
+
+func (h HTTPError) GetDetail() string {
+	return h.Detail
+}
+
+func (h HTTPError) GetStatusCode() int {
+	return h.Status
+}
+
+var _ error = (*HTTPError)(nil)
 
 // HTTPClient defines what a HTTP client have to implement in order to get
 // used by the Client.
@@ -107,7 +73,7 @@ func NewClient(client HTTPClient, model, token string, gpu bool, lang string) *C
 func (c *Client) issueRequest(method, endpoint string, params, dst interface{}) error {
 	// Check the client is properly defined
 	if c.client == nil {
-		return ErrNilClient
+		return errors.New("client is nil")
 	}
 
 	// Marshal the request body if needed (in most cases, for POST)
@@ -141,40 +107,23 @@ func (c *Client) issueRequest(method, endpoint string, params, dst interface{}) 
 
 	// Check for request failure
 	if resp.StatusCode != http.StatusOK {
-		switch resp.StatusCode {
-		case 400:
-			return ErrBadRequest
-		case 401:
-			return ErrUnauthorized
-		case 402:
-			return ErrPaymentRequired
-		case 403:
-			return ErrForbidden
-		case 404:
-			return ErrNotFound
-		case 405:
-			return ErrMethodNotAllowed
-		case 406:
-			return ErrNotAcceptable
-		case 413:
-			return ErrRequestEntityTooLarge
-		case 422:
-			return ErrUnprocessableEntity
-		case 429:
-			return ErrTooManyRequests
-		case 500:
-			return ErrInternalServerError
-		case 502:
-			return ErrBadGateway
-		case 503:
-			return ErrServiceUnavailable
-		case 504:
-			return ErrGatewayTimeout
-		default:
-			return &ErrUnexpectedStatus{
-				Body:       body,
-				StatusCode: resp.StatusCode,
-			}
+		// If the returned body contains the "detail" key,
+		// we extract the value. If it doesn't we simply
+		// return the whole body.
+		var errDetail string
+		var returnedErrorDetail ReturnedErrorDetail
+
+		err = json.Unmarshal(body, &returnedErrorDetail)
+
+		if err == nil {
+			errDetail = returnedErrorDetail.Detail
+		} else {
+			errDetail = string(body)
+		}
+
+		return &HTTPError{
+			Detail: errDetail,
+			Status: resp.StatusCode,
 		}
 	}
 
