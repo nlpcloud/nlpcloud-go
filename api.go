@@ -83,6 +83,21 @@ func (c *Client) Summarization(params SummarizationParams) (*Summarization, erro
 	return summarization, nil
 }
 
+// BatchSummarizationParams wraps all the parameters for the "batch-summarization" endpoint.
+type BatchSummarizationParams struct {
+	Texts []string `json:"texts"`
+}
+
+// BatchSummarization summarizes a batch of blocks of text by contacting the API.
+func (c *Client) BatchSummarization(params BatchSummarizationParams) (*BatchSummarization, error) {
+	batchSummarization := &BatchSummarization{}
+	err := c.issueRequest(http.MethodPost, "batch-summarization", params, batchSummarization)
+	if err != nil {
+		return nil, err
+	}
+	return batchSummarization, nil
+}
+
 // GenerationParams wraps all the parameters for the "generation" endpoint.
 type GenerationParams struct {
 	// Text should not exceed 1200 tokens.
@@ -245,6 +260,11 @@ type Question struct {
 // Summarization holds a summarized text returned by the API.
 type Summarization struct {
 	SummaryText string `json:"summary_text"`
+}
+
+// BatchSummarization holds a batch of summarized texts returned by the API.
+type BatchSummarization struct {
+	SummaryTexts []string `json:"summary_texts"`
 }
 
 // Generation holds a generated text returned by the API.
