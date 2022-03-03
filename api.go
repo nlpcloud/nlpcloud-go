@@ -21,9 +21,9 @@ func (c *Client) Entities(params EntitiesParams) (*Entities, error) {
 
 // ClassificationParams wraps all the parameters for the "classification" endpoint.
 type ClassificationParams struct {
-	Text       string   `json:"text"`
-	Labels     []string `json:"labels"`
-	MultiClass *bool    `json:"multi_class,omitempty"`
+	Text       string    `json:"text"`
+	Labels     *[]string `json:"labels"`
+	MultiClass *bool     `json:"multi_class,omitempty"`
 }
 
 // Classification applies scored labels to a block of text by contacting the API.
@@ -53,8 +53,8 @@ func (c *Client) Sentiment(params SentimentParams) (*Sentiment, error) {
 
 // QuestionParams wraps all the parameters for the "question" endpoint.
 type QuestionParams struct {
-	Context  string `json:"context"`
-	Question string `json:"question"`
+	Question string  `json:"question"`
+	Context  *string `json:"context"`
 }
 
 // Question answers a question with a context by contacting the API.
