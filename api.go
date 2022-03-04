@@ -6,7 +6,8 @@ import (
 
 // EntitiesParams wraps all the parameters for the "entities" endpoint.
 type EntitiesParams struct {
-	Text string `json:"text"`
+	Text           string  `json:"text"`
+	SearchedEntity *string `json:"searched_entity,omitempty"`
 }
 
 // Entities extracts entities from a block of text by contacting the API.
@@ -22,7 +23,7 @@ func (c *Client) Entities(params EntitiesParams) (*Entities, error) {
 // ClassificationParams wraps all the parameters for the "classification" endpoint.
 type ClassificationParams struct {
 	Text       string    `json:"text"`
-	Labels     *[]string `json:"labels"`
+	Labels     *[]string `json:"labels,omitempty"`
 	MultiClass *bool     `json:"multi_class,omitempty"`
 }
 
@@ -54,7 +55,7 @@ func (c *Client) Sentiment(params SentimentParams) (*Sentiment, error) {
 // QuestionParams wraps all the parameters for the "question" endpoint.
 type QuestionParams struct {
 	Question string  `json:"question"`
-	Context  *string `json:"context"`
+	Context  *string `json:"context,omitempty"`
 }
 
 // Question answers a question with a context by contacting the API.
