@@ -70,7 +70,6 @@ func (c *Client) Question(params QuestionParams) (*Question, error) {
 
 // SummarizationParams wraps all the parameters for the "summarization" endpoint.
 type SummarizationParams struct {
-	// Text should not exceed 1024 words.
 	Text string `json:"text"`
 }
 
@@ -82,6 +81,21 @@ func (c *Client) Summarization(params SummarizationParams) (*Summarization, erro
 		return nil, err
 	}
 	return summarization, nil
+}
+
+// ParaphrasingParams wraps all the parameters for the "paraphrasing" endpoint.
+type ParaphrasingParams struct {
+	Text string `json:"text"`
+}
+
+// Paraphrasing paraphrases a block of text by contacting the API.
+func (c *Client) Paraphrasing(params ParaphrasingParams) (*Paraphrasing, error) {
+	paraphrasing := &Paraphrasing{}
+	err := c.issueRequest(http.MethodPost, "paraphrasing", params, paraphrasing)
+	if err != nil {
+		return nil, err
+	}
+	return paraphrasing, nil
 }
 
 // BatchSummarizationParams wraps all the parameters for the "batch-summarization" endpoint.
@@ -101,7 +115,6 @@ func (c *Client) BatchSummarization(params BatchSummarizationParams) (*BatchSumm
 
 // GenerationParams wraps all the parameters for the "generation" endpoint.
 type GenerationParams struct {
-	// Text should not exceed 1200 tokens.
 	Text               string    `json:"text"`
 	MinLength          *int      `json:"min_length,omitempty"`
 	MaxLength          *int      `json:"max_length,omitempty"`
@@ -165,7 +178,6 @@ func (c *Client) LangDetection(params LangDetectionParams) (*LangDetection, erro
 
 // DependenciesParams wraps all the parameters for the "dependencies" endpoint.
 type DependenciesParams struct {
-	// Text should not exceed 1.000 characters.
 	Text string `json:"text"`
 }
 
@@ -196,7 +208,6 @@ func (c *Client) SentenceDependencies(params SentenceDependenciesParams) (*Sente
 
 // TokensParams wraps all the parameters for the "tokens" endpoint.
 type TokensParams struct {
-	// Text should not exceed 1.000 characters.
 	Text string `json:"text"`
 }
 
@@ -266,6 +277,11 @@ type Summarization struct {
 // BatchSummarization holds a batch of summarized texts returned by the API.
 type BatchSummarization struct {
 	SummaryTexts []string `json:"summary_texts"`
+}
+
+// Paraphrasing holds a paraphrased text returned by the API.
+type Paraphrasing struct {
+	ParaphrasedText string `json:"paraphrased_text"`
 }
 
 // Generation holds a generated text returned by the API.
