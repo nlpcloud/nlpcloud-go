@@ -37,6 +37,21 @@ func (c *Client) Classification(params ClassificationParams) (*Classification, e
 	return classification, nil
 }
 
+// IntentClassificationParams wraps all the parameters for the "intent-classification" endpoint.
+type IntentClassificationParams struct {
+	Text string `json:"text"`
+}
+
+// IntentClassification classifies intent from a block of text by contacting the API.
+func (c *Client) IntentClassification(params IntentClassificationParams) (*IntentClassification, error) {
+	intentClassification := &IntentClassification{}
+	err := c.issueRequest(http.MethodPost, "intent-classification", params, intentClassification)
+	if err != nil {
+		return nil, err
+	}
+	return intentClassification, nil
+}
+
 // KwKpExtractionParams wraps all the parameters for the "kw-kp-extraction" endpoint.
 type KwKpExtractionParams struct {
 	Text string `json:"text"`
@@ -280,14 +295,19 @@ type Classification struct {
 	Scores []float64 `json:"scores"`
 }
 
-// AdGeneration holds the generated product description or ad returned by the API.
-type AdGeneration struct {
-	GeneratedText string `json:"generated_text"`
+// IntentClassification holds the classified intent returned by the API.
+type IntentClassification struct {
+	Intent string `json:"intent"`
 }
 
 // KwKpExtraction holds the extracted keywords and keyphrases returned by the API.
 type KwKpExtraction struct {
 	KeywordsAndKeyphrases string `json:"keywords_and_keyphrases"`
+}
+
+// AdGeneration holds the generated product description or ad returned by the API.
+type AdGeneration struct {
+	GeneratedText string `json:"generated_text"`
 }
 
 // ScoredLabel holds a label and its score for sentiment analysis.
