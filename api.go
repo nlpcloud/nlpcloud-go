@@ -19,6 +19,27 @@ func (c *Client) AdGeneration(params AdGenerationParams) (*AdGeneration, error) 
 	return adGeneration, nil
 }
 
+type Exchange struct {
+	Input    string `json:"input"`
+	Response string `json:"input"`
+}
+
+// ChatbotParams wraps all the parameters for the "chatbot" endpoint.
+type ChatbotParams struct {
+	Input   string      `json:"input"`
+	History *[]Exchange `json:"history,omitempty"`
+}
+
+// Chatbot responds as a human by contacting the API.
+func (c *Client) Chatbot(params ChatbotParams) (*Chatbot, error) {
+	chatbot := &Chatbot{}
+	err := c.issueRequest(http.MethodPost, "chatbot", params, chatbot)
+	if err != nil {
+		return nil, err
+	}
+	return chatbot, nil
+}
+
 // ClassificationParams wraps all the parameters for the "classification" endpoint.
 type ClassificationParams struct {
 	Text       string    `json:"text"`
@@ -294,6 +315,12 @@ func (c *Client) Translation(params TranslationParams) (*Translation, error) {
 // AdGeneration holds the generated product description or ad returned by the API.
 type AdGeneration struct {
 	GeneratedText string `json:"generated_text"`
+}
+
+// Chatbot holds the chatbot response returned by the API.
+type Chatbot struct {
+	Response string     `json:"response"`
+	History  []Exchange `json:"history"`
 }
 
 // Classification holds the text classification returned by the API.
