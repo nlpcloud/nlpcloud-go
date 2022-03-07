@@ -37,6 +37,21 @@ func (c *Client) Classification(params ClassificationParams) (*Classification, e
 	return classification, nil
 }
 
+// AdGenerationParams wraps all the parameters for the "ad-generation" endpoint.
+type AdGenerationParams struct {
+	Keywords []string `json:"keywords"`
+}
+
+// AdGeneration generates a product description or an ad by contacting the API.
+func (c *Client) AdGeneration(params AdGenerationParams) (*AdGeneration, error) {
+	adGeneration := &AdGeneration{}
+	err := c.issueRequest(http.MethodPost, "ad-generation", params, adGeneration)
+	if err != nil {
+		return nil, err
+	}
+	return adGeneration, nil
+}
+
 // SentimentParams wraps all the parameters for the "sentiment" endpoint.
 type SentimentParams struct {
 	Text string `json:"text"`
@@ -248,6 +263,11 @@ type Entities struct {
 type Classification struct {
 	Labels []string  `json:"labels"`
 	Scores []float64 `json:"scores"`
+}
+
+// AdGeneration holds the generated product description or ad returned by the API.
+type AdGeneration struct {
+	GeneratedText string `json:"generated_text"`
 }
 
 // ScoredLabel holds a label and its score for sentiment analysis.
