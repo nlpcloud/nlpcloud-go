@@ -37,6 +37,21 @@ func (c *Client) Classification(params ClassificationParams) (*Classification, e
 	return classification, nil
 }
 
+// KwKpExtractionParams wraps all the parameters for the "kw-kp-extraction" endpoint.
+type KwKpExtractionParams struct {
+	Text string `json:"text"`
+}
+
+// AdGeneration generates a product description or an ad by contacting the API.
+func (c *Client) KwKpExtraction(params KwKpExtractionParams) (*KwKpExtraction, error) {
+	kwKpExtraction := &KwKpExtraction{}
+	err := c.issueRequest(http.MethodPost, "kw-kp-extraction", params, kwKpExtraction)
+	if err != nil {
+		return nil, err
+	}
+	return kwKpExtraction, nil
+}
+
 // AdGenerationParams wraps all the parameters for the "ad-generation" endpoint.
 type AdGenerationParams struct {
 	Keywords []string `json:"keywords"`
@@ -268,6 +283,11 @@ type Classification struct {
 // AdGeneration holds the generated product description or ad returned by the API.
 type AdGeneration struct {
 	GeneratedText string `json:"generated_text"`
+}
+
+// KwKpExtraction holds the extracted keywords and keyphrases returned by the API.
+type KwKpExtraction struct {
+	KeywordsAndKeyphrases string `json:"keywords_and_keyphrases"`
 }
 
 // ScoredLabel holds a label and its score for sentiment analysis.
