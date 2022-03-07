@@ -99,6 +99,21 @@ func (c *Client) Generation(params GenerationParams) (*Generation, error) {
 	return generation, nil
 }
 
+// GSCorrectionParams wraps all the parameters for the "gs-correction" endpoint.
+type GSCorrectionParams struct {
+	Text string `json:"text"`
+}
+
+// GSCorrection corrects the grammar and spelling by contacting the API.
+func (c *Client) GSCorrection(params GSCorrectionParams) (*GSCorrection, error) {
+	gSCorrection := &GSCorrection{}
+	err := c.issueRequest(http.MethodPost, "gs-correction", params, gSCorrection)
+	if err != nil {
+		return nil, err
+	}
+	return gSCorrection, nil
+}
+
 // IntentClassificationParams wraps all the parameters for the "intent-classification" endpoint.
 type IntentClassificationParams struct {
 	Text string `json:"text"`
@@ -326,6 +341,11 @@ type Generation struct {
 	GeneratedText     string `json:"generated_text"`
 	NbGeneratedTokens int    `json:"nb_generated_tokens"`
 	NbInputTokens     int    `json:"nb_input_tokens"`
+}
+
+// GSCorrection holds the corrected text returned by the API.
+type GSCorrection struct {
+	Correction string `json:"correction"`
 }
 
 // IntentClassification holds the classified intent returned by the API.
