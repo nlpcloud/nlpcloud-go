@@ -382,7 +382,7 @@ type IntentClassification struct {
 
 // KwKpExtraction holds the extracted keywords and keyphrases returned by the API.
 type KwKpExtraction struct {
-	KeywordsAndKeyphrases string `json:"keywords_and_keyphrases"`
+	KeywordsAndKeyphrases []string `json:"keywords_and_keyphrases"`
 }
 
 // LangDetection holds the languages of a text returned by the API.
