@@ -21,7 +21,7 @@ func (c *Client) AdGeneration(params AdGenerationParams) (*AdGeneration, error) 
 
 type Exchange struct {
 	Input    string `json:"input"`
-	Response string `json:"input"`
+	Response string `json:"response"`
 }
 
 // ChatbotParams wraps all the parameters for the "chatbot" endpoint.
