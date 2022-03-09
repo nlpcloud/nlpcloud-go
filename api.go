@@ -88,6 +88,21 @@ func (c *Client) Entities(params EntitiesParams) (*Entities, error) {
 	return entities, nil
 }
 
+// EmbeddingsParams wraps all the parameters for the "embeddings" endpoint.
+type EmbeddingsParams struct {
+	Sentences []string `json:"sentences"`
+}
+
+// Embeddings extracts embeddings from a list of sentences by contacting the API.
+func (c *Client) Embeddings(params EmbeddingsParams) (*Embeddings, error) {
+	embeddings := &Embeddings{}
+	err := c.issueRequest(http.MethodPost, "embeddings", params, embeddings)
+	if err != nil {
+		return nil, err
+	}
+	return embeddings, nil
+}
+
 // GenerationParams wraps all the parameters for the "generation" endpoint.
 type GenerationParams struct {
 	Text               string    `json:"text"`
@@ -222,6 +237,21 @@ func (c *Client) Question(params QuestionParams) (*Question, error) {
 	return ques, nil
 }
 
+// SemanticSimilarityParams wraps all the parameters for the "semantic-similarity" endpoint.
+type SemanticSimilarityParams struct {
+	Sentences [2]string `json:"sentences"`
+}
+
+// SemanticSimilarity calculates a semantic similarity score out of 2 sentences by contacting the API.
+func (c *Client) SemanticSimilarity(params SemanticSimilarityParams) (*SemanticSimilarity, error) {
+	semanticSimilarity := &SemanticSimilarity{}
+	err := c.issueRequest(http.MethodPost, "semantic-similarity", params, semanticSimilarity)
+	if err != nil {
+		return nil, err
+	}
+	return semanticSimilarity, nil
+}
+
 // SentenceDependenciesParams wraps all the parameters for the "sentence-dependencies" endpoint.
 type SentenceDependenciesParams struct {
 	Text string `json:"text"`
@@ -350,6 +380,12 @@ type Dependencies struct {
 	Arcs  []Arc  `json:"arcs"`
 }
 
+// Embeddings holds text embeddings returned by the API.
+
+type Embeddings struct {
+	Embeddings [][]float64 `json:"embeddings"`
+}
+
 // Entity holds an NER entity returned by the API.
 type Entity struct {
 	Start int    `json:"start"`
@@ -409,6 +445,11 @@ type Question struct {
 // ScoredLabel holds a label and its score for sentiment analysis.
 type ScoredLabel struct {
 	Label string  `json:"label"`
+	Score float64 `json:"score"`
+}
+
+// SemanticSimilarity holds semantic similarity score returned by the API.
+type SemanticSimilarity struct {
 	Score float64 `json:"score"`
 }
 
