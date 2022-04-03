@@ -342,6 +342,21 @@ func (c *Client) Translation(params TranslationParams) (*Translation, error) {
 	return translation, nil
 }
 
+// BatchTranslationParams wraps all the parameters for the "batch-translation" endpoint.
+type BatchTranslationParams struct {
+	Texts []string `json:"texts"`
+}
+
+// BatchTranslation translates a batch of blocks of text by contacting the API.
+func (c *Client) BatchTranslation(params BatchTranslationParams) (*BatchTranslation, error) {
+	batchTranslation := &BatchTranslation{}
+	err := c.issueRequest(http.MethodPost, "batch-translation", params, batchTranslation)
+	if err != nil {
+		return nil, err
+	}
+	return batchTranslation, nil
+}
+
 // AdGeneration holds the generated product description or ad returned by the API.
 type AdGeneration struct {
 	GeneratedText string `json:"generated_text"`
@@ -499,4 +514,9 @@ type Token struct {
 // Translation holds a translated text returned by the API.
 type Translation struct {
 	TranslationText string `json:"translation_text"`
+}
+
+// BatchTranslation holds a batch of translated texts returned by the API.
+type BatchTranslation struct {
+	TranslationTexts []string `json:"translation_texts"`
 }
