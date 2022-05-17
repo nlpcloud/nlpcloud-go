@@ -49,6 +49,9 @@ type Client struct {
 // NewClient initializes a new Client.
 func NewClient(client HTTPClient, model, token string, gpu bool, lang string) *Client {
 	rootUrl := "https://api.nlpcloud.io/v1/"
+	if lang == "en" {
+		lang = ""
+	}
 	if gpu {
 		rootUrl += "gpu/"
 	}
