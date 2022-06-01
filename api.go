@@ -329,7 +329,9 @@ func (c *Client) Tokens(params TokensParams) (*Tokens, error) {
 
 // TranslationParams wraps all the parameters for the "translation" endpoint.
 type TranslationParams struct {
-	Text string `json:"text"`
+	Text   string  `json:"text"`
+	Source *string `json:"source,omitempty"`
+	Target *string `json:"target,omitempty"`
 }
 
 // Translation translates a block of text by contacting the API.
@@ -344,7 +346,9 @@ func (c *Client) Translation(params TranslationParams) (*Translation, error) {
 
 // BatchTranslationParams wraps all the parameters for the "batch-translation" endpoint.
 type BatchTranslationParams struct {
-	Texts []string `json:"texts"`
+	Texts   []string  `json:"texts"`
+	Sources *[]string `json:"sources,omitempty"`
+	Targets *[]string `json:"targets,omitempty"`
 }
 
 // BatchTranslation translates a batch of blocks of text by contacting the API.
