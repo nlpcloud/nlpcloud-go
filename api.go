@@ -57,6 +57,22 @@ func (c *Client) Classification(params ClassificationParams) (*Classification, e
 	return classification, nil
 }
 
+// BatchClassificationParams wraps all the parameters for the "batch-classification" endpoint.
+type BatchClassificationParams struct {
+	Texts  []string `json:"texts"`
+	Labels []string `json:"sources"`
+}
+
+// BatchClassification classifies a batch of blocks of text by contacting the API.
+func (c *Client) BatchClassification(params BatchClassificationParams) (*BatchClassification, error) {
+	batchClassification := &BatchClassification{}
+	err := c.issueRequest(http.MethodPost, "batch-classification", params, batchClassification)
+	if err != nil {
+		return nil, err
+	}
+	return batchClassification, nil
+}
+
 // DependenciesParams wraps all the parameters for the "dependencies" endpoint.
 type DependenciesParams struct {
 	Text string `json:"text"`
@@ -375,6 +391,11 @@ type Chatbot struct {
 // Classification holds the text classification returned by the API.
 type Classification struct {
 	Labels []string  `json:"labels"`
+	Scores []float64 `json:"scores"`
+}
+
+// BatchClassification holds a batch of scores returned by the API.
+type BatchClassification struct {
 	Scores []float64 `json:"scores"`
 }
 
