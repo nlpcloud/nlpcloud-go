@@ -60,7 +60,7 @@ func (c *Client) Classification(params ClassificationParams) (*Classification, e
 // BatchClassificationParams wraps all the parameters for the "batch-classification" endpoint.
 type BatchClassificationParams struct {
 	Texts  []string `json:"texts"`
-	Labels []string `json:"sources"`
+	Labels []string `json:"labels"`
 }
 
 // BatchClassification classifies a batch of blocks of text by contacting the API.
