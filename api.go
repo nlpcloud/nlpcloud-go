@@ -21,7 +21,7 @@ func (c *Client) AdGeneration(params AdGenerationParams) (*AdGeneration, error) 
 
 // ArticleGenerationParams wraps all the parameters for the "article-generation" endpoint.
 type ArticleGenerationParams struct {
-	Title []string `json:"title"`
+	Title string `json:"title"`
 }
 
 // ArticleGeneration generates an article by contacting the API.
@@ -90,7 +90,7 @@ func (c *Client) BatchClassification(params BatchClassificationParams) (*BatchCl
 
 // CodeGenerationParams wraps all the parameters for the "code-generation" endpoint.
 type CodeGenerationParams struct {
-	Intruction []string `json:"instruction"`
+	Intruction string `json:"instruction"`
 }
 
 // CodeGeneration generates source code by contacting the API.
