@@ -19,6 +19,21 @@ func (c *Client) AdGeneration(params AdGenerationParams) (*AdGeneration, error) 
 	return adGeneration, nil
 }
 
+// ArticleGenerationParams wraps all the parameters for the "article-generation" endpoint.
+type ArticleGenerationParams struct {
+	Title []string `json:"title"`
+}
+
+// ArticleGeneration generates an article by contacting the API.
+func (c *Client) ArticleGeneration(params ArticleGenerationParams) (*ArticleGeneration, error) {
+	articleGeneration := &ArticleGeneration{}
+	err := c.issueRequest(http.MethodPost, "article-generation", params, articleGeneration)
+	if err != nil {
+		return nil, err
+	}
+	return articleGeneration, nil
+}
+
 type Exchange struct {
 	Input    string `json:"input"`
 	Response string `json:"response"`
@@ -71,6 +86,21 @@ func (c *Client) BatchClassification(params BatchClassificationParams) (*BatchCl
 		return nil, err
 	}
 	return batchClassification, nil
+}
+
+// CodeGenerationParams wraps all the parameters for the "code-generation" endpoint.
+type CodeGenerationParams struct {
+	Intruction []string `json:"instruction"`
+}
+
+// CodeGeneration generates source code by contacting the API.
+func (c *Client) CodeGeneration(params CodeGenerationParams) (*CodeGeneration, error) {
+	codeGeneration := &CodeGeneration{}
+	err := c.issueRequest(http.MethodPost, "code-generation", params, codeGeneration)
+	if err != nil {
+		return nil, err
+	}
+	return codeGeneration, nil
 }
 
 // DependenciesParams wraps all the parameters for the "dependencies" endpoint.
@@ -382,6 +412,11 @@ type AdGeneration struct {
 	GeneratedText string `json:"generated_text"`
 }
 
+// ArticleGeneration holds the generated article returned by the API.
+type ArticleGeneration struct {
+	GeneratedArticle string `json:"generated_article"`
+}
+
 // Chatbot holds the chatbot response returned by the API.
 type Chatbot struct {
 	Response string     `json:"response"`
@@ -397,6 +432,11 @@ type Classification struct {
 // BatchClassification holds a batch of scores returned by the API.
 type BatchClassification struct {
 	Scores []float64 `json:"scores"`
+}
+
+// CodeGeneration holds the generated code returned by the API.
+type CodeGeneration struct {
+	GeneratedCode string `json:"generated_code"`
 }
 
 // Word holds POS tag for a word.
