@@ -43,6 +43,7 @@ type Exchange struct {
 type ChatbotParams struct {
 	Input   string      `json:"input"`
 	History *[]Exchange `json:"history,omitempty"`
+	Context *string     `json:"context,omitempty"`
 }
 
 // Chatbot responds as a human by contacting the API.
