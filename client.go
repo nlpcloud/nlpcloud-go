@@ -2,6 +2,7 @@ package nlpcloud
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -67,7 +68,7 @@ func NewClient(client HTTPClient, model, token string, gpu bool, lang string) *C
 	}
 }
 
-func (c *Client) issueRequest(method, endpoint string, params, dst interface{}) error {
+func (c *Client) issueRequest(method, endpoint string, params, dst interface{}, opts ...Option) error {
 	// Check the client is properly defined
 	if c.client == nil {
 		return errors.New("client is nil")
@@ -83,8 +84,16 @@ func (c *Client) issueRequest(method, endpoint string, params, dst interface{}) 
 		buf = bytes.NewBuffer(j)
 	}
 
+	// Apply the options
+	options := &options{
+		Ctx: context.Background(),
+	}
+	for _, opt := range opts {
+		opt.apply(options)
+	}
+
 	// Create the request backbone
-	req, err := http.NewRequest(method, c.rootURL+"/"+endpoint, buf)
+	req, err := http.NewRequestWithContext(options.Ctx, method, c.rootURL+"/"+endpoint, buf)
 	if err != nil {
 		return err
 	}
@@ -111,10 +120,34 @@ func (c *Client) issueRequest(method, endpoint string, params, dst interface{}) 
 	}
 
 	// Unmarshal response
-	err = json.Unmarshal(body, dst)
-	if err != nil {
+	if err = json.Unmarshal(body, dst); err != nil {
 		return err
 	}
 
 	return nil
+}
+
+type Option interface {
+	apply(*options)
+}
+
+type options struct {
+	Ctx context.Context
+}
+
+type ctxOpt struct {
+	ctx context.Context
+}
+
+func (opt ctxOpt) apply(opts *options) {
+	opts.Ctx = opt.ctx
+}
+
+// WithContext returns an Option that defines the context.Context
+// to use with issuing a request.
+// Default is context.Background.
+func WithContext(ctx context.Context) Option {
+	return &ctxOpt{
+		ctx: ctx,
+	}
 }

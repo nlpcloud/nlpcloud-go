@@ -10,9 +10,9 @@ type AdGenerationParams struct {
 }
 
 // AdGeneration generates a product description or an ad by contacting the API.
-func (c *Client) AdGeneration(params AdGenerationParams) (*AdGeneration, error) {
+func (c *Client) AdGeneration(params AdGenerationParams, opts ...Option) (*AdGeneration, error) {
 	adGeneration := &AdGeneration{}
-	err := c.issueRequest(http.MethodPost, "ad-generation", params, adGeneration)
+	err := c.issueRequest(http.MethodPost, "ad-generation", params, adGeneration, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -25,9 +25,9 @@ type ArticleGenerationParams struct {
 }
 
 // ArticleGeneration generates an article by contacting the API.
-func (c *Client) ArticleGeneration(params ArticleGenerationParams) (*ArticleGeneration, error) {
+func (c *Client) ArticleGeneration(params ArticleGenerationParams, opts ...Option) (*ArticleGeneration, error) {
 	articleGeneration := &ArticleGeneration{}
-	err := c.issueRequest(http.MethodPost, "article-generation", params, articleGeneration)
+	err := c.issueRequest(http.MethodPost, "article-generation", params, articleGeneration, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -47,9 +47,9 @@ type ChatbotParams struct {
 }
 
 // Chatbot responds as a human by contacting the API.
-func (c *Client) Chatbot(params ChatbotParams) (*Chatbot, error) {
+func (c *Client) Chatbot(params ChatbotParams, opts ...Option) (*Chatbot, error) {
 	chatbot := &Chatbot{}
-	err := c.issueRequest(http.MethodPost, "chatbot", params, chatbot)
+	err := c.issueRequest(http.MethodPost, "chatbot", params, chatbot, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -64,9 +64,9 @@ type ClassificationParams struct {
 }
 
 // Classification applies scored labels to a block of text by contacting the API.
-func (c *Client) Classification(params ClassificationParams) (*Classification, error) {
+func (c *Client) Classification(params ClassificationParams, opts ...Option) (*Classification, error) {
 	classification := &Classification{}
-	err := c.issueRequest(http.MethodPost, "classification", params, classification)
+	err := c.issueRequest(http.MethodPost, "classification", params, classification, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -80,9 +80,9 @@ type BatchClassificationParams struct {
 }
 
 // BatchClassification classifies a batch of blocks of text by contacting the API.
-func (c *Client) BatchClassification(params BatchClassificationParams) (*BatchClassification, error) {
+func (c *Client) BatchClassification(params BatchClassificationParams, opts ...Option) (*BatchClassification, error) {
 	batchClassification := &BatchClassification{}
-	err := c.issueRequest(http.MethodPost, "batch-classification", params, batchClassification)
+	err := c.issueRequest(http.MethodPost, "batch-classification", params, batchClassification, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -95,9 +95,9 @@ type CodeGenerationParams struct {
 }
 
 // CodeGeneration generates source code by contacting the API.
-func (c *Client) CodeGeneration(params CodeGenerationParams) (*CodeGeneration, error) {
+func (c *Client) CodeGeneration(params CodeGenerationParams, opts ...Option) (*CodeGeneration, error) {
 	codeGeneration := &CodeGeneration{}
-	err := c.issueRequest(http.MethodPost, "code-generation", params, codeGeneration)
+	err := c.issueRequest(http.MethodPost, "code-generation", params, codeGeneration, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -110,9 +110,9 @@ type DependenciesParams struct {
 }
 
 // Dependencies gets POS dependencies from a block of text by contacting the API.
-func (c *Client) Dependencies(params DependenciesParams) (*Dependencies, error) {
+func (c *Client) Dependencies(params DependenciesParams, opts ...Option) (*Dependencies, error) {
 	dependencies := &Dependencies{}
-	err := c.issueRequest(http.MethodPost, "dependencies", params, dependencies)
+	err := c.issueRequest(http.MethodPost, "dependencies", params, dependencies, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -126,9 +126,9 @@ type EntitiesParams struct {
 }
 
 // Entities extracts entities from a block of text by contacting the API.
-func (c *Client) Entities(params EntitiesParams) (*Entities, error) {
+func (c *Client) Entities(params EntitiesParams, opts ...Option) (*Entities, error) {
 	entities := &Entities{}
-	err := c.issueRequest(http.MethodPost, "entities", params, entities)
+	err := c.issueRequest(http.MethodPost, "entities", params, entities, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -141,9 +141,9 @@ type EmbeddingsParams struct {
 }
 
 // Embeddings extracts embeddings from a list of sentences by contacting the API.
-func (c *Client) Embeddings(params EmbeddingsParams) (*Embeddings, error) {
+func (c *Client) Embeddings(params EmbeddingsParams, opts ...Option) (*Embeddings, error) {
 	embeddings := &Embeddings{}
-	err := c.issueRequest(http.MethodPost, "embeddings", params, embeddings)
+	err := c.issueRequest(http.MethodPost, "embeddings", params, embeddings, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -173,9 +173,9 @@ type GenerationParams struct {
 }
 
 // Generation generates a block of text by contacting the API.
-func (c *Client) Generation(params GenerationParams) (*Generation, error) {
+func (c *Client) Generation(params GenerationParams, opts ...Option) (*Generation, error) {
 	generation := &Generation{}
-	err := c.issueRequest(http.MethodPost, "generation", params, generation)
+	err := c.issueRequest(http.MethodPost, "generation", params, generation, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -188,9 +188,9 @@ type GSCorrectionParams struct {
 }
 
 // GSCorrection corrects the grammar and spelling by contacting the API.
-func (c *Client) GSCorrection(params GSCorrectionParams) (*GSCorrection, error) {
+func (c *Client) GSCorrection(params GSCorrectionParams, opts ...Option) (*GSCorrection, error) {
 	gSCorrection := &GSCorrection{}
-	err := c.issueRequest(http.MethodPost, "gs-correction", params, gSCorrection)
+	err := c.issueRequest(http.MethodPost, "gs-correction", params, gSCorrection, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -203,9 +203,9 @@ type IntentClassificationParams struct {
 }
 
 // IntentClassification classifies intent from a block of text by contacting the API.
-func (c *Client) IntentClassification(params IntentClassificationParams) (*IntentClassification, error) {
+func (c *Client) IntentClassification(params IntentClassificationParams, opts ...Option) (*IntentClassification, error) {
 	intentClassification := &IntentClassification{}
-	err := c.issueRequest(http.MethodPost, "intent-classification", params, intentClassification)
+	err := c.issueRequest(http.MethodPost, "intent-classification", params, intentClassification, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -218,9 +218,9 @@ type KwKpExtractionParams struct {
 }
 
 // AdGeneration generates a product description or an ad by contacting the API.
-func (c *Client) KwKpExtraction(params KwKpExtractionParams) (*KwKpExtraction, error) {
+func (c *Client) KwKpExtraction(params KwKpExtractionParams, opts ...Option) (*KwKpExtraction, error) {
 	kwKpExtraction := &KwKpExtraction{}
-	err := c.issueRequest(http.MethodPost, "kw-kp-extraction", params, kwKpExtraction)
+	err := c.issueRequest(http.MethodPost, "kw-kp-extraction", params, kwKpExtraction, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -234,9 +234,9 @@ type LangDetectionParams struct {
 }
 
 // LangDetection returns an estimation of the text language by contacting the API.
-func (c *Client) LangDetection(params LangDetectionParams) (*LangDetection, error) {
+func (c *Client) LangDetection(params LangDetectionParams, opts ...Option) (*LangDetection, error) {
 	langDetection := &LangDetection{}
-	err := c.issueRequest(http.MethodPost, "langdetection", params, langDetection)
+	err := c.issueRequest(http.MethodPost, "langdetection", params, langDetection, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -259,9 +259,9 @@ type ParaphrasingParams struct {
 }
 
 // Paraphrasing paraphrases a block of text by contacting the API.
-func (c *Client) Paraphrasing(params ParaphrasingParams) (*Paraphrasing, error) {
+func (c *Client) Paraphrasing(params ParaphrasingParams, opts ...Option) (*Paraphrasing, error) {
 	paraphrasing := &Paraphrasing{}
-	err := c.issueRequest(http.MethodPost, "paraphrasing", params, paraphrasing)
+	err := c.issueRequest(http.MethodPost, "paraphrasing", params, paraphrasing, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -275,9 +275,9 @@ type QuestionParams struct {
 }
 
 // Question answers a question with a context by contacting the API.
-func (c *Client) Question(params QuestionParams) (*Question, error) {
+func (c *Client) Question(params QuestionParams, opts ...Option) (*Question, error) {
 	ques := &Question{}
-	err := c.issueRequest(http.MethodPost, "question", params, ques)
+	err := c.issueRequest(http.MethodPost, "question", params, ques, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -290,9 +290,9 @@ type SemanticSimilarityParams struct {
 }
 
 // SemanticSimilarity calculates a semantic similarity score out of 2 sentences by contacting the API.
-func (c *Client) SemanticSimilarity(params SemanticSimilarityParams) (*SemanticSimilarity, error) {
+func (c *Client) SemanticSimilarity(params SemanticSimilarityParams, opts ...Option) (*SemanticSimilarity, error) {
 	semanticSimilarity := &SemanticSimilarity{}
-	err := c.issueRequest(http.MethodPost, "semantic-similarity", params, semanticSimilarity)
+	err := c.issueRequest(http.MethodPost, "semantic-similarity", params, semanticSimilarity, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -305,9 +305,9 @@ type SentenceDependenciesParams struct {
 }
 
 // SentenceDependencies gets POS dependencies with arcs from a block of text by contacting the API.
-func (c *Client) SentenceDependencies(params SentenceDependenciesParams) (*SentenceDependencies, error) {
+func (c *Client) SentenceDependencies(params SentenceDependenciesParams, opts ...Option) (*SentenceDependencies, error) {
 	sentenceDependencies := &SentenceDependencies{}
-	err := c.issueRequest(http.MethodPost, "sentence-dependencies", params, sentenceDependencies)
+	err := c.issueRequest(http.MethodPost, "sentence-dependencies", params, sentenceDependencies, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -320,9 +320,9 @@ type SentimentParams struct {
 }
 
 // Sentiment defines the sentime of a block of text by contacting the API.
-func (c *Client) Sentiment(params SentimentParams) (*Sentiment, error) {
+func (c *Client) Sentiment(params SentimentParams, opts ...Option) (*Sentiment, error) {
 	sentiment := &Sentiment{}
-	err := c.issueRequest(http.MethodPost, "sentiment", params, sentiment)
+	err := c.issueRequest(http.MethodPost, "sentiment", params, sentiment, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -335,9 +335,9 @@ type SummarizationParams struct {
 }
 
 // Summarization summarizes a block of text by contacting the API.
-func (c *Client) Summarization(params SummarizationParams) (*Summarization, error) {
+func (c *Client) Summarization(params SummarizationParams, opts ...Option) (*Summarization, error) {
 	summarization := &Summarization{}
-	err := c.issueRequest(http.MethodPost, "summarization", params, summarization)
+	err := c.issueRequest(http.MethodPost, "summarization", params, summarization, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -350,9 +350,9 @@ type BatchSummarizationParams struct {
 }
 
 // BatchSummarization summarizes a batch of blocks of text by contacting the API.
-func (c *Client) BatchSummarization(params BatchSummarizationParams) (*BatchSummarization, error) {
+func (c *Client) BatchSummarization(params BatchSummarizationParams, opts ...Option) (*BatchSummarization, error) {
 	batchSummarization := &BatchSummarization{}
-	err := c.issueRequest(http.MethodPost, "batch-summarization", params, batchSummarization)
+	err := c.issueRequest(http.MethodPost, "batch-summarization", params, batchSummarization, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -365,9 +365,9 @@ type TokensParams struct {
 }
 
 // Tokens tokenize and lemmatize text by calling the API.
-func (c *Client) Tokens(params TokensParams) (*Tokens, error) {
+func (c *Client) Tokens(params TokensParams, opts ...Option) (*Tokens, error) {
 	tokens := &Tokens{}
-	err := c.issueRequest(http.MethodPost, "tokens", params, tokens)
+	err := c.issueRequest(http.MethodPost, "tokens", params, tokens, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -382,9 +382,9 @@ type TranslationParams struct {
 }
 
 // Translation translates a block of text by contacting the API.
-func (c *Client) Translation(params TranslationParams) (*Translation, error) {
+func (c *Client) Translation(params TranslationParams, opts ...Option) (*Translation, error) {
 	translation := &Translation{}
-	err := c.issueRequest(http.MethodPost, "translation", params, translation)
+	err := c.issueRequest(http.MethodPost, "translation", params, translation, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -399,9 +399,9 @@ type BatchTranslationParams struct {
 }
 
 // BatchTranslation translates a batch of blocks of text by contacting the API.
-func (c *Client) BatchTranslation(params BatchTranslationParams) (*BatchTranslation, error) {
+func (c *Client) BatchTranslation(params BatchTranslationParams, opts ...Option) (*BatchTranslation, error) {
 	batchTranslation := &BatchTranslation{}
-	err := c.issueRequest(http.MethodPost, "batch-translation", params, batchTranslation)
+	err := c.issueRequest(http.MethodPost, "batch-translation", params, batchTranslation, opts...)
 	if err != nil {
 		return nil, err
 	}
