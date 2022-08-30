@@ -197,6 +197,21 @@ func (c *Client) GSCorrection(params GSCorrectionParams, opts ...Option) (*GSCor
 	return gSCorrection, nil
 }
 
+// ImageGenerationParams wraps all the parameters for the "image-generation" endpoint.
+type ImageGenerationParams struct {
+	Text string `json:"text"`
+}
+
+// ImageGeneration generates an image out of a text instruction by contacting the API.
+func (c *Client) ImageGeneration(params ImageGenerationParams, opts ...Option) (*ImageGeneration, error) {
+	imageGeneration := &ImageGeneration{}
+	err := c.issueRequest(http.MethodPost, "image-generation", params, imageGeneration, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return imageGeneration, nil
+}
+
 // IntentClassificationParams wraps all the parameters for the "intent-classification" endpoint.
 type IntentClassificationParams struct {
 	Text string `json:"text"`
@@ -490,6 +505,11 @@ type Generation struct {
 // GSCorrection holds the corrected text returned by the API.
 type GSCorrection struct {
 	Correction string `json:"correction"`
+}
+
+// ImageGeneration holds the generated image url returned by the API.
+type ImageGeneration struct {
+	URL string `json:"url"`
 }
 
 // IntentClassification holds the classified intent returned by the API.
