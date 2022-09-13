@@ -450,7 +450,8 @@ type ArticleGeneration struct {
 
 // ASR holds the extracted text returned by the API.
 type ASR struct {
-	Text string `json:"text"`
+	Text     string `json:"text"`
+	Duration int    `json:"duration"`
 }
 
 // Chatbot holds the chatbot response returned by the API.
