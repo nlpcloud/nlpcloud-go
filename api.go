@@ -34,6 +34,21 @@ func (c *Client) ArticleGeneration(params ArticleGenerationParams, opts ...Optio
 	return articleGeneration, nil
 }
 
+// ASRParams wraps all the parameters for the "asr" endpoint.
+type ASRParams struct {
+	URL string `json:"url"`
+}
+
+// ASR extracts text from an audio file by contacting the API.
+func (c *Client) ASR(params ASRParams, opts ...Option) (*ASR, error) {
+	asr := &ASR{}
+	err := c.issueRequest(http.MethodPost, "asr", params, asr, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return asr, nil
+}
+
 type Exchange struct {
 	Input    string `json:"input"`
 	Response string `json:"response"`
@@ -431,6 +446,11 @@ type AdGeneration struct {
 // ArticleGeneration holds the generated article returned by the API.
 type ArticleGeneration struct {
 	GeneratedArticle string `json:"generated_article"`
+}
+
+// ASR holds the extracted text returned by the API.
+type ASR struct {
+	Text string `json:"text"`
 }
 
 // Chatbot holds the chatbot response returned by the API.
