@@ -314,6 +314,21 @@ func (c *Client) Question(params QuestionParams, opts ...Option) (*Question, err
 	return ques, nil
 }
 
+// SemanticSearchParams wraps all the parameters for the "semantic-search" endpoint.
+type SemanticSearchParams struct {
+	Text string `json:"text"`
+}
+
+// SemanticSearch performs semantic search on custom data contacting the API.
+func (c *Client) SemanticSearch(params SemanticSearchParams, opts ...Option) (*SemanticSearch, error) {
+	semanticSearch := &SemanticSearch{}
+	err := c.issueRequest(http.MethodPost, "semantic-similarity", params, semanticSearch, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return semanticSearch, nil
+}
+
 // SemanticSimilarityParams wraps all the parameters for the "semantic-similarity" endpoint.
 type SemanticSimilarityParams struct {
 	Sentences [2]string `json:"sentences"`
@@ -568,6 +583,17 @@ type Question struct {
 type ScoredLabel struct {
 	Label string  `json:"label"`
 	Score float64 `json:"score"`
+}
+
+// SearchResult holds a search result from semantic search.
+type SearchResult struct {
+	Score float64 `json:"score"`
+	Text  string  `json:"text"`
+}
+
+// SemanticSearch holds semantic search results returned by the API.
+type SemanticSearch struct {
+	SearchResults []SearchResult `json:"search_results"`
 }
 
 // SemanticSimilarity holds semantic similarity score returned by the API.
