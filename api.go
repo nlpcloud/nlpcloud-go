@@ -393,6 +393,7 @@ func (c *Client) Summarization(params SummarizationParams, opts ...Option) (*Sum
 // BatchSummarizationParams wraps all the parameters for the "batch-summarization" endpoint.
 type BatchSummarizationParams struct {
 	Texts []string `json:"texts"`
+	Size  string   `json:"size"`
 }
 
 // BatchSummarization summarizes a batch of blocks of text by contacting the API.
