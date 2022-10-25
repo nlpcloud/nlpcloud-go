@@ -376,8 +376,8 @@ func (c *Client) Sentiment(params SentimentParams, opts ...Option) (*Sentiment, 
 
 // SummarizationParams wraps all the parameters for the "summarization" endpoint.
 type SummarizationParams struct {
-	Text string `json:"text"`
-	Size string `json:"size"`
+	Text string  `json:"text"`
+	Size *string `json:"size"`
 }
 
 // Summarization summarizes a block of text by contacting the API.
