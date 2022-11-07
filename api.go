@@ -465,10 +465,21 @@ type ArticleGeneration struct {
 	GeneratedArticle string `json:"generated_article"`
 }
 
+// Segment holds an ASR segment (timestamp).
+type Segment struct {
+	ID      int     `json:"id"`
+	Seek    int     `json:"seek"`
+	Starter float64 `json:"start"`
+	End     float64 `json:"end"`
+	Text    string  `json:"text"`
+}
+
 // ASR holds the extracted text returned by the API.
 type ASR struct {
-	Text     string `json:"text"`
-	Duration int    `json:"duration"`
+	Text     string    `json:"text"`
+	Duration int       `json:"duration"`
+	Language string    `json:"language"`
+	Segments []Segment `json:"segments"`
 }
 
 // Chatbot holds the chatbot response returned by the API.
