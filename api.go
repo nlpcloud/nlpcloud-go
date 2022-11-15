@@ -465,6 +465,11 @@ type ArticleGeneration struct {
 	GeneratedArticle string `json:"generated_article"`
 }
 
+// Async holds the information returned when making an async request.
+type Async struct {
+	URL string `json:"url"`
+}
+
 // Segment holds an ASR segment (timestamp).
 type Segment struct {
 	ID      int     `json:"id"`
