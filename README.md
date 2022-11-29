@@ -132,7 +132,7 @@ import (
 )
 
 func main() {
-    client := nlpcloud.NewClient(&http.Client, "<model>", "<token>", false, "<language>")
+    client := nlpcloud.NewClient(&http.Client, "<model>", "<token>", false, "<language>", false)
     ...
 }
 ```
@@ -140,6 +140,8 @@ func main() {
 If you want to use a GPU, set the 4th parameter as `true`.
 
 If you want to use the multilingual add-on in order to process non-English texts, set your language code in the 5th parameter. For example, if you want to process French text, you should set the 5th parameter as `"fr"`.
+
+If you want to make asynchronous requests, pass the 5th parameter as `true`. You will always receive a quick response containing a URL. You should then poll this URL with `nlpcloud.AsyncResult()` on a regular basis (every 10 seconds for example) in order to check if the result is available.
 
 ### API endpoint
 

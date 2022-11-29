@@ -1,7 +1,10 @@
 package nlpcloud
 
 import (
+	"encoding/json"
+	"io"
 	"net/http"
+	"time"
 )
 
 // AdGenerationParams wraps all the parameters for the "ad-generation" endpoint.
@@ -47,6 +50,41 @@ func (c *Client) ASR(params ASRParams, opts ...Option) (*ASR, error) {
 		return nil, err
 	}
 	return asr, nil
+}
+
+// AsyncResultParams wraps all the parameters for the "async-result" endpoint.
+type AsyncResultParams struct {
+	URL string `json:"url"`
+}
+
+// AsyncResult extracts gets an async result by contacting the API.
+func (c *Client) AsyncResult(params AsyncResultParams, opts ...Option) (*AsyncResult, error) {
+	asyncResult := &AsyncResult{}
+
+	resp, err := http.Get(params.URL)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusAccepted {
+		return nil, &HTTPError{
+			Detail: string(body),
+			Status: resp.StatusCode,
+		}
+	}
+
+	if err = json.Unmarshal(body, asyncResult); err != nil {
+		return nil, err
+	}
+
+	return asyncResult, nil
 }
 
 type Exchange struct {
@@ -468,6 +506,17 @@ type ArticleGeneration struct {
 // Async holds the information returned when making an async request.
 type Async struct {
 	URL string `json:"url"`
+}
+
+// AsyncResult holds the information returned when getting an async result.
+
+type AsyncResult struct {
+	CreatedOn   time.Time `json:"created_on"`
+	FinishedOn  time.Time `json:"finished_on"`
+	RequestBody string    `json:"request_body"`
+	HTTPCode    int       `json:"http_code"`
+	ErrorDetail string    `json:"error_detail"`
+	Content     string    `json:"content"`
 }
 
 // Segment holds an ASR segment (timestamp).
