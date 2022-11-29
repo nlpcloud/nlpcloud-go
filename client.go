@@ -115,7 +115,7 @@ func (c *Client) issueRequest(method, endpoint string, params, dst interface{}, 
 	}
 
 	// Check for request failure
-	if resp.StatusCode != http.StatusOK {
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusAccepted {
 		return &HTTPError{
 			Detail: string(body),
 			Status: resp.StatusCode,
