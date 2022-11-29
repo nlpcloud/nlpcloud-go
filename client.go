@@ -56,11 +56,11 @@ func NewClient(client HTTPClient, model, token string, gpu bool, lang string, as
 	if gpu {
 		rootUrl += "gpu/"
 	}
-	if lang != "" {
-		rootUrl += lang + "/"
-	}
 	if async {
 		rootUrl += "async/"
+	}
+	if lang != "" {
+		rootUrl += lang + "/"
 	}
 	rootUrl += model
 
