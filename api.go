@@ -39,7 +39,8 @@ func (c *Client) ArticleGeneration(params ArticleGenerationParams, opts ...Optio
 
 // ASRParams wraps all the parameters for the "asr" endpoint.
 type ASRParams struct {
-	URL string `json:"url"`
+	URL         *string `json:"url"`
+	EncodedFile *string `json:"encoded_file"`
 }
 
 // ASR extracts text from an audio file by contacting the API.
