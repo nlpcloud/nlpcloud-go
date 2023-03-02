@@ -356,7 +356,8 @@ func (c *Client) Question(params QuestionParams, opts ...Option) (*Question, err
 
 // SemanticSearchParams wraps all the parameters for the "semantic-search" endpoint.
 type SemanticSearchParams struct {
-	Text string `json:"text"`
+	Text       string `json:"text"`
+	NumResults int    `json:"num_results"`
 }
 
 // SemanticSearch performs semantic search on custom data contacting the API.
