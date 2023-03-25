@@ -225,6 +225,7 @@ type GenerationParams struct {
 	LengthPenalty      *float64  `json:"length_penalty,omitempty"`
 	BadWords           *[]string `json:"bad_words,omitempty"`
 	RemoveEndSequence  *bool     `json:"remove_end_sequence,omitempty"`
+	IsInstruct         *bool     `json:"is_instruct,omitempty"`
 }
 
 // Generation generates a block of text by contacting the API.
