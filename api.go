@@ -238,6 +238,21 @@ func (c *Client) Generation(params GenerationParams, opts ...Option) (*Generatio
 	return generation, nil
 }
 
+// BatchGenerationParams wraps all the parameters for the "batch-generation" endpoint.
+type BatchGenerationParams struct {
+	Texts []string `json:"texts"`
+}
+
+// BatchGeneration generates a batch of blocks of text by contacting the API.
+func (c *Client) BatchGeneration(params BatchGenerationParams) (*BatchGeneration, error) {
+	batchGeneration := &BatchGeneration{}
+	err := c.issueRequest(http.MethodPost, "batch-generation", params, batchGeneration)
+	if err != nil {
+		return nil, err
+	}
+	return batchGeneration, nil
+}
+
 // GSCorrectionParams wraps all the parameters for the "gs-correction" endpoint.
 type GSCorrectionParams struct {
 	Text string `json:"text"`
@@ -607,6 +622,11 @@ type Generation struct {
 	GeneratedText     string `json:"generated_text"`
 	NbGeneratedTokens int    `json:"nb_generated_tokens"`
 	NbInputTokens     int    `json:"nb_input_tokens"`
+}
+
+// BatchGeneration holds a batch of generations returned by the API.
+type BatchGeneration struct {
+	Generations []Generation `json:"generations"`
 }
 
 // GSCorrection holds the corrected text returned by the API.
