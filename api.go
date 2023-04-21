@@ -557,7 +557,6 @@ type AsyncResult struct {
 // Segment holds an ASR segment (timestamp).
 type Segment struct {
 	ID      int     `json:"id"`
-	Seek    int     `json:"seek"`
 	Starter float64 `json:"start"`
 	End     float64 `json:"end"`
 	Text    string  `json:"text"`
