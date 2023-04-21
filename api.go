@@ -431,6 +431,22 @@ func (c *Client) Sentiment(params SentimentParams, opts ...Option) (*Sentiment, 
 	return sentiment, nil
 }
 
+// SpeechSynthesisParams wraps all the parameters for the "speech-synthesis" endpoint.
+type SpeechSynthesisParams struct {
+	Text  string  `json:"text"`
+	Voice *string `json:"voice"`
+}
+
+// SpeechSynthesis generates audio out of a text by contacting the API.
+func (c *Client) SpeechSynthesis(params SpeechSynthesisParams, opts ...Option) (*SpeechSynthesis, error) {
+	speechSynthesis := &SpeechSynthesis{}
+	err := c.issueRequest(http.MethodPost, "speech-synthesis", params, speechSynthesis, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return speechSynthesis, nil
+}
+
 // SummarizationParams wraps all the parameters for the "summarization" endpoint.
 type SummarizationParams struct {
 	Text string  `json:"text"`
@@ -708,6 +724,11 @@ type SentenceDependencies struct {
 // Sentiment holds the sentiment of a text returned by the API.
 type Sentiment struct {
 	ScoredLabels []ScoredLabel `json:"scored_labels"`
+}
+
+// SpeechSynthesis holds the generated audio file url returned by the API.
+type SpeechSynthesis struct {
+	URL string `json:"url"`
 }
 
 // Summarization holds a summarized text returned by the API.
