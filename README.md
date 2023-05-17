@@ -91,7 +91,7 @@ import (
 )
 
 func main() {
-    client := nlpcloud.NewClient(&http.Client{}, "bart-large-cnn", "4eC39HqLyjWDarjtT1zdp7dc", true, "fr")
+    client := nlpcloud.NewClient(&http.Client{}, "bart-large-cnn", "4eC39HqLyjWDarjtT1zdp7dc", true, "fra_Latn")
     summarization, err := client.Summarization(nlpcloud.SummarizationParams{Text: `Sur des images aériennes, 
     prises la veille par un vol de surveillance de la Nouvelle-Zélande, la côte d’une île est bordée 
     d’arbres passés du vert au gris sous l’effet des retombées volcaniques. On y voit aussi des immeubles
@@ -139,7 +139,7 @@ func main() {
 
 If you want to use a GPU, set the 4th parameter as `true`.
 
-If you want to use the multilingual add-on in order to process non-English texts, set your language code in the 5th parameter. For example, if you want to process French text, you should set the 5th parameter as `"fr"`.
+If you want to use the multilingual add-on in order to process non-English texts, set your language code in the 5th parameter. For example, if you want to process French text, you should set the 5th parameter as `"fra_Latn"`.
 
 If you want to make asynchronous requests, pass the 5th parameter as `true`. You will always receive a quick response containing a URL. You should then poll this URL with `nlpcloud.AsyncResult()` on a regular basis (every 10 seconds for example) in order to check if the result is available.
 
