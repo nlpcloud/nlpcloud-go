@@ -22,21 +22,6 @@ func (c *Client) AdGeneration(params AdGenerationParams, opts ...Option) (*AdGen
 	return adGeneration, nil
 }
 
-// ArticleGenerationParams wraps all the parameters for the "article-generation" endpoint.
-type ArticleGenerationParams struct {
-	Title string `json:"title"`
-}
-
-// ArticleGeneration generates an article by contacting the API.
-func (c *Client) ArticleGeneration(params ArticleGenerationParams, opts ...Option) (*ArticleGeneration, error) {
-	articleGeneration := &ArticleGeneration{}
-	err := c.issueRequest(http.MethodPost, "article-generation", params, articleGeneration, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return articleGeneration, nil
-}
-
 // ASRParams wraps all the parameters for the "asr" endpoint.
 type ASRParams struct {
 	URL           *string `json:"url"`
@@ -531,11 +516,6 @@ func (c *Client) BatchTranslation(params BatchTranslationParams, opts ...Option)
 // AdGeneration holds the generated product description or ad returned by the API.
 type AdGeneration struct {
 	GeneratedText string `json:"generated_text"`
-}
-
-// ArticleGeneration holds the generated article returned by the API.
-type ArticleGeneration struct {
-	GeneratedArticle string `json:"generated_article"`
 }
 
 // Async holds the information returned when making an async request.
