@@ -53,6 +53,9 @@ func NewClient(client HTTPClient, model, token string, gpu bool, lang string, as
 	if lang == "en" {
 		lang = ""
 	}
+	if lang == "eng_Latn" {
+		lang = ""
+	}
 	if gpu {
 		rootUrl += "gpu/"
 	}
