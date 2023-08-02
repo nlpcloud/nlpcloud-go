@@ -193,24 +193,18 @@ func (c *Client) Embeddings(params EmbeddingsParams, opts ...Option) (*Embedding
 // GenerationParams wraps all the parameters for the "generation" endpoint.
 type GenerationParams struct {
 	Text               string    `json:"text"`
-	MinLength          *int      `json:"min_length,omitempty"`
 	MaxLength          *int      `json:"max_length,omitempty"`
 	LengthNoInput      *bool     `json:"length_no_input,omitempty"`
 	EndSequence        *string   `json:"end_sequence,omitempty"`
 	RemoveInput        *bool     `json:"remove_input,omitempty"`
-	DoSample           *bool     `json:"do_sample,omitempty"`
 	NumBeams           *int      `json:"num_beams,omitempty"`
-	EarlyStopping      *bool     `json:"early_stopping,omitempty"`
-	NoRepeatNgramSize  *int      `json:"no_repeat_ngram_size,omitempty"`
 	NumReturnSequences *int      `json:"num_return_sequences,omitempty"`
 	TopK               *int      `json:"top_k,omitempty"`
 	TopP               *float64  `json:"top_p,omitempty"`
 	Temperature        *float64  `json:"temperature,omitempty"`
 	RepetitionPenalty  *float64  `json:"repetition_penalty,omitempty"`
-	LengthPenalty      *float64  `json:"length_penalty,omitempty"`
 	BadWords           *[]string `json:"bad_words,omitempty"`
 	RemoveEndSequence  *bool     `json:"remove_end_sequence,omitempty"`
-	IsInstruct         *bool     `json:"is_instruct,omitempty"`
 }
 
 // Generation generates a block of text by contacting the API.
