@@ -132,7 +132,7 @@ import (
 )
 
 func main() {
-    client := nlpcloud.NewClient(&http.Client, "<model>", "<token>", false, "<language>", false)
+    client := nlpcloud.NewClient(&http.Client{}, "<model>", "<token>", false, "<language>", false)
     ...
 }
 ```
