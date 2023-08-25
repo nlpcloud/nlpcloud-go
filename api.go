@@ -205,6 +205,8 @@ type GenerationParams struct {
 	RepetitionPenalty  *float64  `json:"repetition_penalty,omitempty"`
 	BadWords           *[]string `json:"bad_words,omitempty"`
 	RemoveEndSequence  *bool     `json:"remove_end_sequence,omitempty"`
+	// NoChatPrompt is experimental. It is not suited for production.
+	NoChatPrompt *bool `json:"no_chat_prompt,omitempty"`
 }
 
 // Generation generates a block of text by contacting the API.
