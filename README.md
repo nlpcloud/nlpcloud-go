@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-    client := nlpcloud.NewClient(&http.Client{}, ClientParams{
+    client := nlpcloud.NewClient(&http.Client{}, nlpcloud.ClientParams{
         Model:"bart-large-cnn", Token:"4eC39HqLyjWDarjtT1zdp7dc", GPU:false, Lang:"", Async:false})
     summarization, err := client.Summarization(nlpcloud.SummarizationParams{Text: `One month after
     the United States began what has become a troubled rollout of a national COVID vaccination
@@ -63,7 +63,7 @@ import (
 )
 
 func main() {
-    client := nlpcloud.NewClient(&http.Client{}, ClientParams{
+    client := nlpcloud.NewClient(&http.Client{}, nlpcloud.ClientParams{
         Model:"bart-large-cnn", Token:"4eC39HqLyjWDarjtT1zdp7dc", GPU:true, Lang:"", Async:false})
     summarization, err := client.Summarization(nlpcloud.SummarizationParams{Text: `One month after
     the United States began what has become a troubled rollout of a national COVID vaccination
@@ -93,7 +93,7 @@ import (
 )
 
 func main() {
-    client := nlpcloud.NewClient(&http.Client{}, ClientParams{
+    client := nlpcloud.NewClient(&http.Client{}, nlpcloud.ClientParams{
         Model:"bart-large-cnn", Token:"4eC39HqLyjWDarjtT1zdp7dc", GPU:true, Lang:"fra_Latn", Async:false})
     summarization, err := client.Summarization(nlpcloud.SummarizationParams{Text: `Sur des images aériennes, 
     prises la veille par un vol de surveillance de la Nouvelle-Zélande, la côte d’une île est bordée 
@@ -135,7 +135,7 @@ import (
 )
 
 func main() {
-    client := nlpcloud.NewClient(&http.Client{}, ClientParams{
+    client := nlpcloud.NewClient(&http.Client{}, nlpcloud.`ClientParams{
         Model:"<model>", Token:"<token>", GPU:false, Lang:"<language>", Async:false})
     ...
 }
