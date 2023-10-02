@@ -47,30 +47,39 @@ type Client struct {
 	token   string
 }
 
+// ClientParams wraps all the parameters for the client initialization.
+type ClientParams struct {
+	Model string
+	Token string
+	GPU   bool
+	Lang  string
+	Async bool
+}
+
 // NewClient initializes a new Client.
-func NewClient(client HTTPClient, model, token string, gpu bool, lang string, async bool) *Client {
+func NewClient(client HTTPClient, clientParams ClientParams) *Client {
 	rootUrl := "https://api.nlpcloud.io/v1/"
-	if lang == "en" {
-		lang = ""
+	if clientParams.Lang == "en" {
+		clientParams.Lang = ""
 	}
-	if lang == "eng_Latn" {
-		lang = ""
+	if clientParams.Lang == "eng_Latn" {
+		clientParams.Lang = ""
 	}
-	if gpu {
+	if clientParams.GPU {
 		rootUrl += "gpu/"
 	}
-	if async {
+	if clientParams.Async {
 		rootUrl += "async/"
 	}
-	if lang != "" {
-		rootUrl += lang + "/"
+	if clientParams.Lang != "" {
+		rootUrl += clientParams.Lang + "/"
 	}
-	rootUrl += model
+	rootUrl += clientParams.Model
 
 	return &Client{
 		client:  client,
 		rootURL: rootUrl,
-		token:   token,
+		token:   clientParams.Token,
 	}
 }
 

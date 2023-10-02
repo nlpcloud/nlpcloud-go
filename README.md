@@ -33,7 +33,8 @@ import (
 )
 
 func main() {
-    client := nlpcloud.NewClient(&http.Client{}, "bart-large-cnn", "4eC39HqLyjWDarjtT1zdp7dc", false, "")
+    client := nlpcloud.NewClient(&http.Client{}, ClientParams{
+        Model:"bart-large-cnn", Token:"4eC39HqLyjWDarjtT1zdp7dc", GPU:false, Lang:"", Async:false})
     summarization, err := client.Summarization(nlpcloud.SummarizationParams{Text: `One month after
     the United States began what has become a troubled rollout of a national COVID vaccination
     campaign, the effort is finally gathering real steam. Close to a million doses -- over 951,000, to be more exact -- 
@@ -62,7 +63,8 @@ import (
 )
 
 func main() {
-    client := nlpcloud.NewClient(&http.Client{}, "bart-large-cnn", "4eC39HqLyjWDarjtT1zdp7dc", true, "")
+    client := nlpcloud.NewClient(&http.Client{}, ClientParams{
+        Model:"bart-large-cnn", Token:"4eC39HqLyjWDarjtT1zdp7dc", GPU:true, Lang:"", Async:false})
     summarization, err := client.Summarization(nlpcloud.SummarizationParams{Text: `One month after
     the United States began what has become a troubled rollout of a national COVID vaccination
     campaign, the effort is finally gathering real steam. Close to a million doses -- over 951,000, to be more exact -- 
@@ -91,7 +93,8 @@ import (
 )
 
 func main() {
-    client := nlpcloud.NewClient(&http.Client{}, "bart-large-cnn", "4eC39HqLyjWDarjtT1zdp7dc", true, "fra_Latn")
+    client := nlpcloud.NewClient(&http.Client{}, ClientParams{
+        Model:"bart-large-cnn", Token:"4eC39HqLyjWDarjtT1zdp7dc", GPU:true, Lang:"fra_Latn", Async:false})
     summarization, err := client.Summarization(nlpcloud.SummarizationParams{Text: `Sur des images aériennes, 
     prises la veille par un vol de surveillance de la Nouvelle-Zélande, la côte d’une île est bordée 
     d’arbres passés du vert au gris sous l’effet des retombées volcaniques. On y voit aussi des immeubles
@@ -132,7 +135,8 @@ import (
 )
 
 func main() {
-    client := nlpcloud.NewClient(&http.Client{}, "<model>", "<token>", false, "<language>", false)
+    client := nlpcloud.NewClient(&http.Client{}, ClientParams{
+        Model:"<model>", Token:"<token>", GPU:false, Lang:"<language>", Async:false})
     ...
 }
 ```
