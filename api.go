@@ -205,6 +205,7 @@ type GenerationParams struct {
 	RepetitionPenalty  *float64  `json:"repetition_penalty,omitempty"`
 	BadWords           *[]string `json:"bad_words,omitempty"`
 	RemoveEndSequence  *bool     `json:"remove_end_sequence,omitempty"`
+	Stream             *bool     `json:"stream,omitempty"`
 	// NoChatPrompt is experimental. It is not suited for production.
 	NoChatPrompt *bool `json:"no_chat_prompt,omitempty"`
 }
