@@ -205,7 +205,6 @@ type GenerationParams struct {
 	RepetitionPenalty  *float64  `json:"repetition_penalty,omitempty"`
 	BadWords           *[]string `json:"bad_words,omitempty"`
 	RemoveEndSequence  *bool     `json:"remove_end_sequence,omitempty"`
-	Stream             *bool     `json:"stream,omitempty"`
 	// NoChatPrompt is experimental. It is not suited for production.
 	NoChatPrompt *bool `json:"no_chat_prompt,omitempty"`
 }
@@ -218,6 +217,16 @@ func (c *Client) Generation(params GenerationParams, opts ...Option) (*Generatio
 		return nil, err
 	}
 	return generation, nil
+}
+
+// StreamingGeneration generates a block of text by contacting the API, and returns a stream.
+func (c *Client) StreamingGeneration(params GenerationParams, opts ...Option) (io.ReadCloser, error) {
+	streamBody, err := c.issueStreamingRequest(http.MethodPost, "generation", params)
+	if err != nil {
+		return nil, err
+	}
+
+	return streamBody, nil
 }
 
 // BatchGenerationParams wraps all the parameters for the "batch-generation" endpoint.

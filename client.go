@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 )
 
 // HTTPError is an error type returned when the HTTP request
@@ -140,6 +141,55 @@ func (c *Client) issueRequest(method, endpoint string, params, dst interface{}, 
 	}
 
 	return nil
+}
+
+func (c *Client) issueStreamingRequest(method, endpoint string, params interface{}, opts ...Option) (io.ReadCloser, error) {
+	// Check the client is properly defined
+	if c.client == nil {
+		return nil, errors.New("client is nil")
+	}
+
+	// Marshal the request body if needed (in most cases, for POST)
+	var buf io.Reader = nil
+	if params != nil {
+		j, err := json.Marshal(params)
+		if err != nil {
+			return nil, err
+		}
+		streamingPayload := strings.Replace(string(j), "}", `,"stream":true}`, -1)
+		buf = bytes.NewBuffer([]byte(streamingPayload))
+	}
+
+	// Apply the options
+	options := &options{
+		Ctx: context.Background(),
+	}
+	for _, opt := range opts {
+		opt.apply(options)
+	}
+
+	// Create the request backbone
+	req, err := http.NewRequestWithContext(options.Ctx, method, c.rootURL+"/"+endpoint, buf)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("Authorization", "Token "+c.token)
+	req.Header.Set("User-Agent", "nlpcloud-go-client")
+
+	// Issue the request
+	resp, err := c.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	// Check for request failure
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusAccepted {
+		return nil, &HTTPError{
+			Status: resp.StatusCode,
+		}
+	}
+
+	return resp.Body, nil
 }
 
 type Option interface {
