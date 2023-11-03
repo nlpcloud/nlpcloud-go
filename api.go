@@ -96,6 +96,16 @@ func (c *Client) Chatbot(params ChatbotParams, opts ...Option) (*Chatbot, error)
 	return chatbot, nil
 }
 
+// StreamingChatbot responds as a human by contacting the API, and returns a stream.
+func (c *Client) StreamingChatbot(params ChatbotParams, opts ...Option) (io.ReadCloser, error) {
+	streamBody, err := c.issueStreamingRequest(http.MethodPost, "chatbot", params)
+	if err != nil {
+		return nil, err
+	}
+
+	return streamBody, nil
+}
+
 // ClassificationParams wraps all the parameters for the "classification" endpoint.
 type ClassificationParams struct {
 	Text       string    `json:"text"`
