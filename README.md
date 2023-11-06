@@ -158,15 +158,15 @@ res, err := client.TheAPIEndpoint(params TheAPIEndpointParams)
 
 ### Streaming
 
-Some API endpoints support token streaming. Here is an example showing how to implement token streaming with the `generation` API endpoint:
+Some API endpoints support token streaming through Server Sent Events (SSE). Here is an example showing how to implement token streaming with the `generation` API endpoint:
 
 ```go
-client := nlpcloud.NewClient(httpClient, nlpcloud.ClientParams{Model: endpoint, Token: token, GPU: true})
+client := nlpcloud.NewClient(&http.Client{}, nlpcloud.ClientParams{Model: <model_name>, Token: <token>, GPU: true})
 
-streamBody, err := client.StreamingGeneration(params)
-if err != nil {
-  log.Fatalln(err)
-}
+streamBody, err := client.StreamingGeneration(nlpcloud.GenerationParams{
+  Text: "LLaMA is a powerful NLP model",
+  MaxLength: 50,
+})
 
 defer streamBody.Close()
 
