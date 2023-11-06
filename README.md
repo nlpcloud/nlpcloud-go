@@ -153,5 +153,34 @@ Depending on the API endpoint, it may have parameters (only `LibVersions` does n
 In case it has parameters, you can call an endpoint using the following:
 
 ```go
-res, err := nlpcloud.TheAPIEndpoint(params TheAPIEndpointParams)
+res, err := client.TheAPIEndpoint(params TheAPIEndpointParams)
+```
+
+### Streaming
+
+Some API endpoints support token streaming. Here is an example showing how to implement token streaming with the `generation` API endpoint:
+
+```go
+client := nlpcloud.NewClient(httpClient, nlpcloud.ClientParams{Model: endpoint, Token: token, GPU: true})
+
+streamBody, err := client.StreamingGeneration(params)
+if err != nil {
+  log.Fatalln(err)
+}
+
+defer streamBody.Close()
+
+stream := bufio.NewReader(streamBody)
+
+for {
+  chunk, err := stream.ReadBytes('\x00')
+  if err != nil {
+    if errors.Is(err, io.EOF) {
+      break
+    }
+    log.Fatalln()
+  }
+
+  fmt.Println(string(chunk))
+}
 ```
