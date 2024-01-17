@@ -156,7 +156,7 @@ func (c *Client) issueStreamingRequest(method, endpoint string, params interface
 		if err != nil {
 			return nil, err
 		}
-		streamingPayload := strings.Replace(string(j), "}", `,"stream":true}`, -1)
+		streamingPayload := strings.TrimSuffix(string(j), "}") + `,"stream":true}`
 		buf = bytes.NewBuffer([]byte(streamingPayload))
 	}
 
