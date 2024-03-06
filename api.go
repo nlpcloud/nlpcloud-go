@@ -564,6 +564,7 @@ type ASR struct {
 	Duration int       `json:"duration"`
 	Language string    `json:"language"`
 	Segments []Segment `json:"segments"`
+	Words    []Segment `json:"words"`
 }
 
 // Chatbot holds the chatbot response returned by the API.
