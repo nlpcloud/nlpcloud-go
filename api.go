@@ -330,16 +330,6 @@ func (c *Client) LangDetection(params LangDetectionParams, opts ...Option) (*Lan
 	return langDetection, nil
 }
 
-// LibVersions returns the versions used with the model by calling the API.
-func (c *Client) LibVersions() (*LibVersions, error) {
-	libVersions := &LibVersions{}
-	err := c.issueRequest(http.MethodGet, "versions", nil, libVersions)
-	if err != nil {
-		return nil, err
-	}
-	return libVersions, nil
-}
-
 // ParaphrasingParams wraps all the parameters for the "paraphrasing" endpoint.
 type ParaphrasingParams struct {
 	Text string `json:"text"`
@@ -665,9 +655,6 @@ type KwKpExtraction struct {
 type LangDetection struct {
 	Languages []map[string]float64 `json:"languages"`
 }
-
-// LibVersions holds the versions of the libraries used behind the hood with the model.
-type LibVersions map[string]string
 
 // Paraphrasing holds a paraphrased text returned by the API.
 type Paraphrasing struct {
