@@ -540,12 +540,21 @@ type AsyncResult struct {
 	Content     string    `json:"content"`
 }
 
-// Segment holds an ASR segment (timestamp).
+// Segment holds an ASR segment.
 type Segment struct {
 	ID      int     `json:"id"`
 	Starter float64 `json:"start"`
 	End     float64 `json:"end"`
 	Text    string  `json:"text"`
+}
+
+// Word holds an ASR word.
+type ASRWord struct {
+	ID      int     `json:"id"`
+	Starter float64 `json:"start"`
+	End     float64 `json:"end"`
+	Text    string  `json:"text"`
+	Prob    float64 `json:"prob"`
 }
 
 // ASR holds the extracted text returned by the API.
@@ -554,7 +563,7 @@ type ASR struct {
 	Duration int       `json:"duration"`
 	Language string    `json:"language"`
 	Segments []Segment `json:"segments"`
-	Words    []Segment `json:"words"`
+	Words    []ASRWord `json:"words"`
 }
 
 // Chatbot holds the chatbot response returned by the API.
