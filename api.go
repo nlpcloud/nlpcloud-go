@@ -409,7 +409,8 @@ func (c *Client) SentenceDependencies(params SentenceDependenciesParams, opts ..
 
 // SentimentParams wraps all the parameters for the "sentiment" endpoint.
 type SentimentParams struct {
-	Text string `json:"text"`
+	Text   string  `json:"text"`
+	Target *string `json:"target,omitempty"`
 }
 
 // Sentiment defines the sentime of a block of text by contacting the API.
